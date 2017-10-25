@@ -33,3 +33,5 @@ sqlfermededd.sql
 
 /user_guide
 /application/config/database.php
+/application/config/config.php
+.gitignore
