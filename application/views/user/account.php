@@ -8,8 +8,9 @@
     <title>Compte</title>
 </head>
 <body>
-<?php var_dump($_SESSION) ?>
-<h1><?= $_SESSION['user_infos']['user_name'] ?></h1>
-
+<ul>
+    <li><b>Nom : </b><?=$_SESSION['user_infos'][0]['user_name']?></li>
+    <li><b>email : </b><?=$_SESSION['user_infos'][0]['user_mail']?></li>
+</ul>
 </body>
 </html>
