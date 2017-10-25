@@ -8,9 +8,12 @@
     <title>Compte</title>
 </head>
 <body>
-<ul>
-    <li><b>Nom : </b><?=$_SESSION['user_infos'][0]['user_name']?></li>
-    <li><b>email : </b><?=$_SESSION['user_infos'][0]['user_mail']?></li>
-</ul>
+<div align="center">
+    <ul>
+        <b>Nom : </b><?=$_SESSION['user_infos'][0]['user_name']?><br/>
+        <b>email : </b><?=$_SESSION['user_infos'][0]['user_mail']?>
+    </ul>
+    <a href="User/logout">Se déconnecter</a>
+</div>
 </body>
 </html>

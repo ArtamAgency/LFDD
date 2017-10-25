@@ -37,31 +37,26 @@ class User extends CI_Controller
         {
             $this->session->set_flashdata('noconnect', 'Aucun compte ne correspond à vos identifiants ');
             $this->load->view('user/login');
-            //redirect('/login');
         }
         else
         {
             $this->load->view('user/login');
-            echo 'form no run';
         }
 
     }
 
     public function account()
     {
-        $this->load->view('user/account');
-    }
-
-    private function sessionUser()
-    {
-        if (!$this->session->userdata('user_infos')) {
-            redirect('/login');
+        if(!empty($this->session->userdata('user_infos'))) {
+            $this->load->view('user/account');
+        }else {
+            redirect('User/connexion');
         }
     }
 
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect('/User/connexion');
+        redirect('User/connexion');
     }
 }

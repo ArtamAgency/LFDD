@@ -1,3 +1,4 @@
+<div align="center">
 <div id="login">
     <form class ="form_user form-horizontal" method="post" action="">
         <h4>Connexion</h4>
@@ -27,4 +28,5 @@
   <strong>" . $this->session->flashdata('noconnect') . "<strong>
  </div>";
     ?>
+</div>
 </div>
