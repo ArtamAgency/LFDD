@@ -23,8 +23,8 @@ class User extends CI_Controller
         if($this->form_validation->run() === TRUE)
         {
             $result = $this->User_model->userLogin($login,$password);
-            redirect('/User/account');
-            $this->session->set_userdata('user_id', $result[0]);
+            redirect('compte');
+            $this->session->set_userdata('²r_infos', $result[0]);
             $this->session->set_flashdata('connect', 'Connecté en tant que');
             var_dump($result);
         }
@@ -48,7 +48,7 @@ class User extends CI_Controller
 
     private function sessionUser()
     {
-        if (!$this->session->userdata('user_id')) {
+        if (!$this->session->userdata('user_infos')) {
             redirect('/login');
         }
     }
@@ -56,6 +56,6 @@ class User extends CI_Controller
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect('/login');
+        redirect('/User/connexion');
     }
 }

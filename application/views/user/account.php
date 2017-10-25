@@ -8,6 +8,8 @@
     <title>Compte</title>
 </head>
 <body>
-<h1>pd</h1>
+<?php var_dump($_SESSION) ?>
+<h1><?= $_SESSION['user_infos']['user_name'] ?></h1>
+
 </body>
 </html>
