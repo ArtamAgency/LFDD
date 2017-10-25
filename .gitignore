@@ -32,3 +32,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 sqlfermededd.sql
 
 /user_guide
+/application/config/database.php
