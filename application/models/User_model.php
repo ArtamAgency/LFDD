@@ -1,9 +1,26 @@
 <?php
 
-require 'asset/PHPMailer-master/src/PHPMailer.php';
-
-class user_model extends CI_Model
+class User_model extends CI_Model
 {
+    protected $table = 'user';
+
+    public function userLogin($login, $password) {
+
+        return $this->db
+            ->from($this->table)
+            ->where('user_name', $login)
+            ->where('user_password', $password)
+            ->get()
+            ->result_array();
+    }
+
+    public function updatePassword($password)
+    {
+        $this->db->set('user_password', $password);
+        $this->db->where('user_id', $_SESSION['user_infos'][0]['user_id']);
+        $this->db->update('user');
+    }
+
     function __construct()
     {
         // Call the Model constructor
@@ -21,6 +38,9 @@ class user_model extends CI_Model
     //send verification email to user's email id
     function sendEmail($to_email)
     {
+
+        require 'asset/PHPMailer-master/src/PHPMailer.php';
+
         $mail = new PHPMailer;
 
         //$mail->SMTPDebug = 3;                               // Enable verbose debug output
@@ -45,3 +65,5 @@ class user_model extends CI_Model
         return $this->db->update('user', $data);
     }
 }
+
+?>

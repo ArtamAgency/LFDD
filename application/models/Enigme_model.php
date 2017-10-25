@@ -1,5 +1,6 @@
 <?php
 
-class Enigme_model extends CI_model {
+class Enigme_model extends CI_Model
+{
 
 }

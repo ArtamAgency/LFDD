@@ -31,4 +31,10 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/results/
 sqlfermededd.sql
 
+
 /Applications/MAMP/htdocs/projets3/config/database.php
+/user_guide
+/application/config/database.php
+/application/config/config.php
+.gitignore
+
