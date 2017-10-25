@@ -10,6 +10,10 @@ class User extends CI_Controller
 
     public function connexion()
     {
+
+        if(!empty($this->session->userdata('user_infos'))) {
+            redirect('compte');
+        }
         //$this->load->view('user/login.php');
 
         //Récupérer les données saisies envoyées en POST
