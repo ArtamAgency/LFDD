@@ -39,6 +39,26 @@
         <button class="btn btn-large btn-primary" type="submit">Valider</button>
 
     </form>
+
+    <form class ="form_user form-horizontal" method="post" action="User/cgMail">
+        <h4>Changer email</h4>
+        <div class="control-group">
+            <div class="controls">
+                <input class="validate[required]" type="email" name="curmail" placeholder="Email actuel">
+                <?php echo form_error('curmail'); ?>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <input class="validate[required]" type="email" placeholder="Nouvel email" name="newmail">
+                <?php echo form_error('newmail'); ?>
+            </div>
+        </div>
+
+        <button class="btn btn-large btn-primary" type="submit">Valider</button>
+
+    </form>
     <?php if ($this->session->flashdata('nochange')) : ?>
         <div class="alert alert-error">
             <button type="button" class="close" data-dismiss="alert">&times;</button>

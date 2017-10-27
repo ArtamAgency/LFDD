@@ -72,6 +72,24 @@ class User extends CI_Controller
         }
     }
 
+    public function cgMail()
+    {
+        $curmail = $this->input->post('curmail');
+        $newmail = $this->input->post('newmail');
+
+        $this->form_validation->set_rules('curmail', '"Email actuel"', 'trim|required');
+        $this->form_validation->set_rules('newmail', '"Nouvel email"', 'trim|required');
+
+        if ($curmail == $_SESSION['user_infos'][0]['user_mail']) {
+            $this->User_model->updatePassword($newmail);
+            $this->session->set_flashdata('change', 'Ca a fonctionné !');
+            $this->account();
+        }else {
+            $this->session->set_flashdata('nochange', 'Tu n\'as pas rempli correctement les champs');
+            redirect('compte');
+        }
+    }
+
     public function logout()
     {
         $this->session->sess_destroy();

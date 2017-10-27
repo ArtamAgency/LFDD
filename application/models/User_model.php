@@ -21,6 +21,11 @@ class User_model extends CI_Model
         $this->db->update('user');
     }
 
+    public function updateMail($mail)
+    {
+
+    }
+
     function insertUser($data)
     {
         var_dump($data);
