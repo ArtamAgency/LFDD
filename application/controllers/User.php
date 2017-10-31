@@ -3,7 +3,7 @@
 class User extends CI_Controller
 {
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
@@ -96,6 +96,12 @@ class User extends CI_Controller
         redirect('User/connexion');
     }
 
+    public function manageUsers()
+    {
+        // check si user_admin == 1 sinon rediriger vers account()
+        // afficher toutes les infos des utilisateurs avec un select * from users
+    }
+
     /*function index()
     {
         $this->registration();
@@ -152,7 +158,7 @@ class User extends CI_Controller
         }
     }
 
-    function verify($hash=NULL)
+    private function verify($hash=NULL)
     {
         if ($this->user_model->verifyEmailID($hash))
         {

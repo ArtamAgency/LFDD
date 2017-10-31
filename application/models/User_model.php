@@ -4,8 +4,8 @@ class User_model extends CI_Model
 {
     protected $table = 'user';
 
-    public function userLogin($login, $password) {
-
+    public function userLogin($login, $password)
+    {
         return $this->db
             ->from($this->table)
             ->where('user_name', $login)
@@ -18,7 +18,12 @@ class User_model extends CI_Model
     {
         $this->db->set('user_password', $password);
         $this->db->where('user_id', $_SESSION['user_infos'][0]['user_id']);
-        $this->db->update('user');
+        $this->db->update($this->table);
+    }
+
+    public function getUsers()
+    {
+        $this->db->get($this->table);
     }
 
     public function updateMail($mail)
@@ -26,7 +31,7 @@ class User_model extends CI_Model
 
     }
 
-    function insertUser($data)
+    public function insertUser($data)
     {
         var_dump($data);
         $this->db->set('user_name', $data['user_name']);
@@ -35,13 +40,13 @@ class User_model extends CI_Model
         $this->db->set('user_blocked', 0);
         $this->db->set('user_bantil', NULL);
         $this->db->set('user_admin', 0);
-        $this->db->insert('user');
+        $this->db->insert($this->table);
     }
 
 
 
     //send verification email to user's email id
-    function sendEmail($to_email)
+    public function sendEmail($to_email)
     {
         require 'asset/PHPMailer-master/src/PHPMailer.php';
 
@@ -66,7 +71,7 @@ class User_model extends CI_Model
     {
         $data = array('status' => 1);
         $this->db->where('user_mail', $key);
-        return $this->db->update('user', $data);
+        return $this->db->update($this->table, $data);
     }
 }
 
