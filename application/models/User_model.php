@@ -11,7 +11,8 @@ class User_model extends CI_Model
             ->where('user_name', $login)
             ->where('user_password', $password)
             ->get()
-            ->result_array();
+            ->result_array()
+        ;
     }
 
     public function updatePassword($password)
