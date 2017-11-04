@@ -59,10 +59,10 @@
         <button class="btn btn-large btn-primary" type="submit">Valider</button>
 
     </form>
-    <?php if ($this->session->flashdata('nochange')) : ?>
+    <?php if ($this->session->flashdata('change')) : ?>
         <div class="alert alert-error">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong><?= $this->session->flashdata('nochange')?><strong>
+            <strong><?= $this->session->flashdata('change')?><strong>
         </div>
     <?php endif ?>
     <br/>

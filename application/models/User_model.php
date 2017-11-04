@@ -2,12 +2,12 @@
 
 class User_model extends CI_Model
 {
-    protected $table = 'user';
+    protected $tableUser = 'user';
 
     public function userLogin($login, $password)
     {
         return $this->db
-            ->from($this->table)
+            ->from($this->tableUser)
             ->where('user_name', $login)
             ->where('user_password', $password)
             ->get()
@@ -19,17 +19,19 @@ class User_model extends CI_Model
     {
         $this->db->set('user_password', $password);
         $this->db->where('user_id', $_SESSION['user_infos'][0]['user_id']);
-        $this->db->update($this->table);
+        $this->db->update($this->tableUser);
     }
 
     public function getUsers()
     {
-        $this->db->get($this->table);
+        $this->db->get($this->tableUser);
     }
 
     public function updateMail($mail)
     {
-
+        $this->db->set('user_mail', $mail);
+        $this->db->where('user_id', $_SESSION['user_infos'][0]['user_id']);
+        $this->db->update($this->tableUser);
     }
 
     public function insertUser($data)
@@ -41,7 +43,7 @@ class User_model extends CI_Model
         $this->db->set('user_blocked', 0);
         $this->db->set('user_bantil', NULL);
         $this->db->set('user_admin', 0);
-        $this->db->insert($this->table);
+        $this->db->insert($this->tableUser);
     }
 
 
@@ -72,8 +74,7 @@ class User_model extends CI_Model
     {
         $data = array('status' => 1);
         $this->db->where('user_mail', $key);
-        return $this->db->update($this->table, $data);
+        return $this->db->update($this->tableUser, $data);
     }
-}
 
-?>
+}

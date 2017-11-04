@@ -4,16 +4,25 @@ class Enigme extends CI_Controller
 {
     protected function isConnected()
     {
-        return isset($this->session->userdata());
+        return isset($this->session->userdata);
     }
 
     public function startGame()
     {
         if($this->isConnected())
         {
-            //quand l'utilisateur appuie sur le bouton "commencer à jouer" sur l'accueil
-            //insérer ses infos en db dans la table résoudre
-        }else
+            $userId = $_SESSION['user_infos'][0]['user_id'];
+            if($this->Enigme_model->isPlaying($userId) == 0)
+            {
+                $this->Enigme_model->startGame($userId);
+            }
+            else
+            {
+                $enigmeId = $this->Enigme_model->getEnigmeEnCours($userId);
+                $this->drawEnigme($enigmeId);
+            }
+        }
+        else
         {
             $this->load->view('user/login');
         }
@@ -23,16 +32,18 @@ class Enigme extends CI_Controller
     {
         if($this->isConnected())
         {
-        $userId = $this->session->userdata('user_id');
+        $userId = $_SESSION['user_infos'][0]['user_id'];
         $enigmeEnCours = $this->Enigme_model->getEnigmeEnCours($userId);
             if($enigmeEnCours == $enigmeId)
             {
                 //rendre vue enigme avec $enigmeId en parametre (url type projets3/enigme/2)
-            }else
+            }
+            else
             {
                 $this->drawEnigme($enigmeEnCours);
             }
-        }else
+        }
+        else
         {
             $this->load->view('user/login');
         }
@@ -41,7 +52,7 @@ class Enigme extends CI_Controller
     //fonction à mettre en action du formulaire de réponse à l'énigme
     public function enigmeHandler($enigmeId)
     {
-        $userId = $this->session->userdata('user_id');
+        $userId = $_SESSION['user_infos'][0]['user_id'];
         $attempts = $this->Enigme_model->getAttempts($userId);
         $reponseUser = $this->input->post('reponse');
         $reponseDB = $this->Enigme_model->getReponse($enigmeId);
@@ -50,16 +61,19 @@ class Enigme extends CI_Controller
         {
             $enigmeId += 1;
             $this->drawEnigme($enigmeId);
-        }else
+        }
+        else
         {
             if($attempts == 3)
             {
                 // appeler fonction qui bloque utilisateur
-            }else
+            }
+            else
             {
                 // incrémenter user_attempts en db
                 $this->drawEnigme($enigmeId);
             }
         }
     }
+
 }
