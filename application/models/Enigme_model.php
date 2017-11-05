@@ -29,6 +29,19 @@ class Enigme_model extends CI_Model
             ->select('user_attempts')
             ->where('user_id', $userId)
             ->get($this->tableResoudre)
+            ->result_array()
+        ;
+    }
+
+    public function incrementAttempts($userId)
+    {
+        $attemptsArray = $this->getAttempts($userId);
+        $attempts = $attemptsArray[0]['user_attempts'];
+        var_dump($attempts);
+        $this->db
+            ->set('user_attempts', $attempts+1)
+            ->where('user_id', $userId)
+            ->update($this->tableResoudre)
         ;
     }
 
@@ -38,6 +51,7 @@ class Enigme_model extends CI_Model
             ->select('enigme_id')
             ->where('user_id', $userId)
             ->get($this->tableResoudre)
+            ->result_array()
         ;
     }
 

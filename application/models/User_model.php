@@ -46,8 +46,6 @@ class User_model extends CI_Model
         $this->db->insert($this->tableUser);
     }
 
-
-
     //send verification email to user's email id
     public function sendEmail($to_email)
     {
@@ -77,4 +75,45 @@ class User_model extends CI_Model
         return $this->db->update($this->tableUser, $data);
     }
 
+    public function blockUserModel($userId)
+    {
+        $date = date('Y-m-d H:i:s', strtotime('+1 day'));
+        $this->db
+            ->set('user_blocked', 1)
+            ->set('user_bantil', $date, TRUE)
+            ->where('user_id', $userId)
+            ->update($this->tableUser)
+        ;
+    }
+
+    public function unblockUserModel($userId)
+    {
+        $this->db
+            ->set('user_blocked', 0)
+            ->set('user_bantil', NULL)
+            ->where('user_id', $userId)
+            ->update($this->tableUser)
+        ;
+    }
+
+    public function getTimeBan($userId)
+    {
+        $query = $this->db
+            ->select('user_bantil')
+            ->where('user_id', $userId)
+            ->get($this->tableUser)
+            ->result_array()
+        ;
+        return $query;
+    }
+    public function checkBan($userId)
+    {
+        $query = $this->db
+            ->select('user_blocked')
+            ->where('user_id', $userId)
+            ->get($this->tableUser)
+            ->result_array()
+        ;
+        return $query;
+    }
 }

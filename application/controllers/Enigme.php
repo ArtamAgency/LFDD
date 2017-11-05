@@ -4,13 +4,54 @@ class Enigme extends CI_Controller
 {
     protected function isConnected()
     {
-        return isset($this->session->userdata);
+        return isset($_SESSION['user_infos']);
+    }
+
+    protected function isNotBanned()
+    {
+        $userId = $_SESSION['user_infos'][0]['user_id'];
+        $statusArray = $this->User_model->checkBan($userId);
+        $banned = $statusArray[0]['user_blocked'];
+        if($banned == 0)
+        {
+            return TRUE;
+        }
+        else
+        {
+            $timeBanArray = $this->User_model->getTimeBan($userId);
+            $timeBan = $timeBanArray[0]['user_bantil'];
+            $now = date('Y-m-d H:i:s');
+            if($now > $timeBan)
+            {
+                $this->unblockUser($userId);
+                return TRUE;
+            }
+            else
+            {
+                return FALSE;
+            }
+        }
+    }
+    protected function blockUser($userId)
+    {
+        $this->User_model->blockUserModel($userId);
+    }
+
+    protected function unblockUser($userId)
+    {
+        $this->User_model->unblockUserModel($userId);
+    }
+
+    public function attemptsPlusOne($userId)
+    {
+        $this->Enigme_model->IncrementAttempts($userId);
     }
 
     public function startGame()
     {
         if($this->isConnected())
         {
+            //var_dump($_SESSION);
             $userId = $_SESSION['user_infos'][0]['user_id'];
             if($this->Enigme_model->isPlaying($userId) == 0)
             {
@@ -18,8 +59,10 @@ class Enigme extends CI_Controller
             }
             else
             {
-                $enigmeId = $this->Enigme_model->getEnigmeEnCours($userId);
-                $this->drawEnigme($enigmeId);
+                $enigmeIdArray = $this->Enigme_model->getEnigmeEnCours($userId);
+                $enigmeId = $enigmeIdArray[0]['enigme_id'];
+                //header('Location: drawenigme/'.$enigmeId);
+                redirect('/enigme/drawenigme/'.$enigmeId);
             }
         }
         else
@@ -30,17 +73,23 @@ class Enigme extends CI_Controller
 
     public function drawEnigme($enigmeId)
     {
-        if($this->isConnected())
-        {
-        $userId = $_SESSION['user_infos'][0]['user_id'];
-        $enigmeEnCours = $this->Enigme_model->getEnigmeEnCours($userId);
-            if($enigmeEnCours == $enigmeId)
-            {
-                //rendre vue enigme avec $enigmeId en parametre (url type projets3/enigme/2)
+        if($this->isConnected()) {
+            if ($this->isNotBanned()) {
+                $userId = $_SESSION['user_infos'][0]['user_id'];
+                $enigmeEnCoursArray = $this->Enigme_model->getEnigmeEnCours($userId);
+                $enigmeEnCours = $enigmeEnCoursArray[0]['enigme_id'];
+                var_dump($enigmeEnCours);
+                if ($enigmeEnCours == $enigmeId) {
+                    //rendre vue enigme avec $enigmeId en parametre (url type projets3/enigme/2)
+                    echo 'it works';
+                } else {
+                    //header('Location: http://localhost/projets3/enigme/drawenigme/'.$enigmeEnCours);
+                    redirect('/enigme/drawenigme/' . $enigmeEnCours);
+                }
             }
             else
             {
-                $this->drawEnigme($enigmeEnCours);
+                $this->load->view('user/account');
             }
         }
         else
@@ -64,13 +113,14 @@ class Enigme extends CI_Controller
         }
         else
         {
-            if($attempts == 3)
+            if($attempts == 2)
             {
-                // appeler fonction qui bloque utilisateur
+                $this->attemptsPlusOne($userId);
+                $this->blockUser($userId);
             }
             else
             {
-                // incrémenter user_attempts en db
+                $this->attemptsPlusOne($userId);
                 $this->drawEnigme($enigmeId);
             }
         }
