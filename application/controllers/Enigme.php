@@ -42,9 +42,19 @@ class Enigme extends CI_Controller
         $this->User_model->unblockUserModel($userId);
     }
 
-    public function attemptsPlusOne($userId)
+    protected function attemptsPlusOne($userId)
     {
         $this->Enigme_model->IncrementAttempts($userId);
+    }
+
+    protected function enigmePlusOne($enigmeId, $userId)
+    {
+        $this->Enigme_model->incrementEnigme($enigmeId, $userId);
+    }
+
+    protected function attemptsAtZero($userId)
+    {
+        $this->Enigme_model->resetAttempts($userId);
     }
 
     public function startGame()
@@ -78,10 +88,9 @@ class Enigme extends CI_Controller
                 $userId = $_SESSION['user_infos'][0]['user_id'];
                 $enigmeEnCoursArray = $this->Enigme_model->getEnigmeEnCours($userId);
                 $enigmeEnCours = $enigmeEnCoursArray[0]['enigme_id'];
-                var_dump($enigmeEnCours);
                 if ($enigmeEnCours == $enigmeId) {
-                    //rendre vue enigme avec $enigmeId en parametre (url type projets3/enigme/2)
-                    echo 'it works';
+                    $data['enigme'] = $this->Enigme_model->getEnigmeById($enigmeId);
+                    $this->load->view('enigmes/enigme', $data);
                 } else {
                     //header('Location: http://localhost/projets3/enigme/drawenigme/'.$enigmeEnCours);
                     redirect('/enigme/drawenigme/' . $enigmeEnCours);
@@ -102,26 +111,33 @@ class Enigme extends CI_Controller
     public function enigmeHandler($enigmeId)
     {
         $userId = $_SESSION['user_infos'][0]['user_id'];
-        $attempts = $this->Enigme_model->getAttempts($userId);
-        $reponseUser = $this->input->post('reponse');
-        $reponseDB = $this->Enigme_model->getReponse($enigmeId);
+        $attemptsArray = $this->Enigme_model->getAttempts($userId);
+        $attempts = $attemptsArray[0]['user_attempts'];
+        $reponseUser = $this->input->post('response');
+        //var_dump($reponseUser);
+        $reponseDBArray = $this->Enigme_model->getReponse($enigmeId);
+        $reponseDB = $reponseDBArray[0]['enigme_response'];
 
         if($reponseUser == $reponseDB)
         {
             $enigmeId += 1;
-            $this->drawEnigme($enigmeId);
+            $this->enigmePlusOne($enigmeId, $userId);
+            $this->attemptsAtZero($userId);
+            redirect('/Enigme/drawEnigme/'.$enigmeId);
         }
         else
         {
-            if($attempts == 2)
+            if($attempts == '2')
             {
                 $this->attemptsPlusOne($userId);
                 $this->blockUser($userId);
+                redirect('/User/account');
+                $this->session->set_flashdata('flash', 'Ton compte a été bloqué car tu as raté trois fois cette énigme :(. Il sera débloqué dans 24h.');
             }
             else
             {
                 $this->attemptsPlusOne($userId);
-                $this->drawEnigme($enigmeId);
+                redirect('/Enigme/drawEnigme/'.$enigmeId);
             }
         }
     }

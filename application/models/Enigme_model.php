@@ -20,6 +20,7 @@ class Enigme_model extends CI_Model
             ->select('enigme_response')
             ->where('enigme_id', $enigmeId)
             ->get($this->tableEnigme)
+            ->result_array()
         ;
     }
 
@@ -37,11 +38,37 @@ class Enigme_model extends CI_Model
     {
         $attemptsArray = $this->getAttempts($userId);
         $attempts = $attemptsArray[0]['user_attempts'];
-        var_dump($attempts);
         $this->db
             ->set('user_attempts', $attempts+1)
             ->where('user_id', $userId)
             ->update($this->tableResoudre)
+        ;
+    }
+
+    public function incrementEnigme($enigmeId, $userId)
+    {
+        $this->db
+            ->set('enigme_id', $enigmeId)
+            ->where('user_id', $userId)
+            ->update($this->tableResoudre)
+        ;
+    }
+
+    public function resetAttempts($userId)
+    {
+        $this->db
+            ->set('user_attempts', 0)
+            ->where('user_id', $userId)
+            ->update($this->tableResoudre)
+        ;
+    }
+
+    public function getEnigmeById($enigmeId)
+    {
+        return $this->db
+            ->where('enigme_id', $enigmeId)
+            ->get($this->tableEnigme)
+            ->result_array()
         ;
     }
 

@@ -4,6 +4,20 @@ class User_model extends CI_Model
 {
     protected $tableUser = 'user';
 
+    public function getAllUsers()
+    {
+        return $this->db
+            ->join('resoudre', 'resoudre.user_id = user.user_id')
+            ->get($this->tableUser)
+            ->result_array()
+        ;
+    }
+
+    public function getAllEnigmes()
+    {
+        return $this->db->get('enigme')->result_array();
+    }
+
     public function userLogin($login, $password)
     {
         return $this->db

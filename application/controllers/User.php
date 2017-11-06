@@ -102,7 +102,18 @@ class User extends CI_Controller
     public function manageUsers()
     {
         // check si user_admin == 1 sinon rediriger vers account()
-        // afficher toutes les infos des utilisateurs avec un select * from users
+        if($_SESSION['user_infos'][0]['user_admin'] == 1)
+        {
+            //load view backoffice
+            // afficher toutes les infos des utilisateurs avec un select * from users
+            $data['users'] = $this->User_model->getAllUsers();
+            $data['enigmes'] = $this->User_model->getAllEnigmes();
+            $this->load->view('user/admin', $data);
+        }
+        else
+        {
+            redirect('/user/account');
+        }
     }
 
     /*function index()
