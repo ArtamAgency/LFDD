@@ -2,6 +2,8 @@
 
 class Enigme extends CI_Controller
 {
+    protected $nombreEnigmes = 10;
+
     protected function isConnected()
     {
         return isset($_SESSION['user_infos']);
@@ -40,6 +42,7 @@ class Enigme extends CI_Controller
     protected function unblockUser($userId)
     {
         $this->User_model->unblockUserModel($userId);
+        $this->attemptsAtZero($userId);
     }
 
     protected function attemptsPlusOne($userId)
@@ -120,10 +123,18 @@ class Enigme extends CI_Controller
 
         if($reponseUser == $reponseDB)
         {
-            $enigmeId += 1;
-            $this->enigmePlusOne($enigmeId, $userId);
-            $this->attemptsAtZero($userId);
-            redirect('/Enigme/drawEnigme/'.$enigmeId);
+            if($enigmeId == $this->nombreEnigmes)
+            {
+                $this->session->set_flashdata('change', 'Bravo tu as retrouvé Célestin !');
+                redirect('/user/account');
+            }
+            else
+            {
+                $enigmeId += 1;
+                $this->enigmePlusOne($enigmeId, $userId);
+                $this->attemptsAtZero($userId);
+                redirect('/Enigme/drawEnigme/'.$enigmeId);
+            }
         }
         else
         {
@@ -131,8 +142,8 @@ class Enigme extends CI_Controller
             {
                 $this->attemptsPlusOne($userId);
                 $this->blockUser($userId);
+                $this->session->set_flashdata('change', 'Ton compte a été bloqué car tu as raté trois fois cette énigme :(. Il sera débloqué dans 30 minutes.');
                 redirect('/User/account');
-                $this->session->set_flashdata('flash', 'Ton compte a été bloqué car tu as raté trois fois cette énigme :(. Il sera débloqué dans 24h.');
             }
             else
             {

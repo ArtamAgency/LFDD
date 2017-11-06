@@ -91,7 +91,7 @@ class User_model extends CI_Model
 
     public function blockUserModel($userId)
     {
-        $date = date('Y-m-d H:i:s', strtotime('+1 day'));
+        $date = date('Y-m-d H:i:s', strtotime('+30 minutes'));
         $this->db
             ->set('user_blocked', 1)
             ->set('user_bantil', $date, TRUE)

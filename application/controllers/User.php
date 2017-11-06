@@ -25,12 +25,12 @@ class User extends CI_Controller
         if($this->form_validation->run() === true && !empty($result))
         {
             $this->session->set_userdata('user_infos', $result);
-            $this->session->set_flashdata('connect', 'Connecté en tant que');
+            $this->session->set_flashdata('change', 'Connecté en tant que <i>'.$login.'</i>');
             redirect('compte');
         }
         elseif($this->form_validation->run() == true && empty($result))
         {
-            $this->session->set_flashdata('noconnect', 'Aucun compte ne correspond à vos identifiants ');
+            $this->session->set_flashdata('change', 'Aucun compte ne correspond à tes identifiants ');
             $this->load->view('user/login');
         }
         else
@@ -67,7 +67,7 @@ class User extends CI_Controller
         }
         else
         {
-            $this->session->set_flashdata('nochange', 'Tu n\'as pas rempli correctement les champs');
+            $this->session->set_flashdata('change', 'Tu n\'as pas rempli correctement les champs');
             redirect('compte');
         }
     }
