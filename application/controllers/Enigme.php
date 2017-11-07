@@ -66,13 +66,14 @@ class Enigme extends CI_Controller
             if($this->Enigme_model->isPlaying($userId) == 0)
             {
                 $this->Enigme_model->startGame($userId);
+                $this->startGame();
             }
             else
             {
                 $enigmeIdArray = $this->Enigme_model->getEnigmeEnCours($userId);
                 $enigmeId = $enigmeIdArray[0]['enigme_id'];
                 //header('Location: drawenigme/'.$enigmeId);
-                redirect('/enigme/drawenigme/'.$enigmeId);
+                redirect('/enigme/'.$enigmeId);
             }
         }
         else
@@ -83,29 +84,37 @@ class Enigme extends CI_Controller
 
     public function drawEnigme($enigmeId)
     {
-        if($this->isConnected()) {
-            if ($this->isNotBanned()) {
+        if($this->isConnected())
+        {
+            if ($this->isNotBanned())
+            {
                 $userId = $_SESSION['user_infos'][0]['user_id'];
                 $enigmeEnCoursArray = $this->Enigme_model->getEnigmeEnCours($userId);
                 $enigmeEnCours = $enigmeEnCoursArray[0]['enigme_id'];
-                if ($enigmeEnCours == $enigmeId) {
+                if ($enigmeEnCours == $enigmeId)
+                {
                     $data['enigme'] = $this->Enigme_model->getEnigmeById($enigmeId);
-                    $this->load->view('enigmes/enigme', $data);
-                } else {
+                    $this->load->view('enigmes/enigme'/*.$enigmeId*/, $data);
+                }
+                else
+                {
                     //header('Location: http://localhost/projets3/enigme/drawenigme/'.$enigmeEnCours);
-                    redirect('/enigme/drawenigme/' . $enigmeEnCours);
+                    redirect('/enigme/' . $enigmeEnCours);
                 }
             }
             else
             {
-                $this->load->view('user/account');
+                redirect('/compte');
             }
         }
         else
         {
-            $this->load->view('user/login');
+            redirect('/connexion');
         }
     }
+
+    //Quand le puzzle est completé, ou quand toutes les zones ont été cliquées
+    //set la value d'un champs hidden sur la réponse de la BDD
 
     //fonction à mettre en action du formulaire de réponse à l'énigme
     public function enigmeHandler($enigmeId)
@@ -123,7 +132,7 @@ class Enigme extends CI_Controller
             $enigmeId += 1;
             $this->enigmePlusOne($enigmeId, $userId);
             $this->attemptsAtZero($userId);
-            redirect('/Enigme/drawEnigme/'.$enigmeId);
+            redirect('/enigme/'.$enigmeId);
         }
         else
         {
@@ -131,13 +140,13 @@ class Enigme extends CI_Controller
             {
                 $this->attemptsPlusOne($userId);
                 $this->blockUser($userId);
-                redirect('/User/account');
+                redirect('/compte');
                 $this->session->set_flashdata('flash', 'Ton compte a été bloqué car tu as raté trois fois cette énigme :(. Il sera débloqué dans 24h.');
             }
             else
             {
                 $this->attemptsPlusOne($userId);
-                redirect('/Enigme/drawEnigme/'.$enigmeId);
+                redirect('/enigme/'.$enigmeId);
             }
         }
     }

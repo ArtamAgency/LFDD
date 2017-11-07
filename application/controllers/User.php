@@ -26,7 +26,7 @@ class User extends CI_Controller
         {
             $this->session->set_userdata('user_infos', $result);
             $this->session->set_flashdata('connect', 'Connecté en tant que');
-            redirect('compte');
+            redirect('/compte');
         }
         elseif($this->form_validation->run() == true && empty($result))
         {
@@ -46,7 +46,7 @@ class User extends CI_Controller
             $this->load->view('user/account');
         }
         else {
-            redirect('User/connexion');
+            redirect('/connexion');
         }
     }
 
@@ -68,7 +68,7 @@ class User extends CI_Controller
         else
         {
             $this->session->set_flashdata('nochange', 'Tu n\'as pas rempli correctement les champs');
-            redirect('compte');
+            redirect('/compte');
         }
     }
 
@@ -89,14 +89,14 @@ class User extends CI_Controller
         else
         {
             $this->session->set_flashdata('change', 'Tu n\'as pas rempli correctement les champs');
-            redirect('compte');
+            redirect('/compte');
         }
     }
 
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect('User/connexion');
+        redirect('/connexion');
     }
 
     public function manageUsers()
@@ -112,7 +112,7 @@ class User extends CI_Controller
         }
         else
         {
-            redirect('/user/account');
+            redirect('/compte');
         }
     }
 
@@ -152,20 +152,20 @@ class User extends CI_Controller
                 {
                     // successfully sent mail
                     $this->session->set_flashdata('change','<div class="alert alert-success text-center">Tu es maintenant inscrit ! Confirme ton inscription en cliquant sur le lien !</div>');
-                    redirect('/user/registration');
+                    redirect('/inscription');
                 }
                 else
                 {
                     // error
                     $this->session->set_flashdata('change','<div class="alert alert-danger text-center">L\'inscription n\'a pas marché !</div>');
-                    redirect('/user/registration');
+                    redirect('/inscription');
                 }
             }
             else
             {
                 // error
                 $this->session->set_flashdata('change','<div class="alert alert-danger text-center">L\'inscription n\'a pas marché !</div>');
-                redirect('/user/registration');
+                redirect('/inscription');
             }
         }
         else
@@ -207,12 +207,12 @@ class User extends CI_Controller
         if ($this->user_model->verifyEmailID($hash))
         {
             $this->session->set_flashdata('verify_msg','<div class="alert alert-success text-center">Your Email Address is successfully verified! Please login to access your account!</div>');
-            redirect('user/register');
+            redirect('/inscription');
         }
         else
         {
             $this->session->set_flashdata('verify_msg','<div class="alert alert-danger text-center">Sorry! There is error verifying your Email Address!</div>');
-            redirect('user/register');
+            redirect('/inscription');
         }
     }
 }
