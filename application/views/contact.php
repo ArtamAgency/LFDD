@@ -10,13 +10,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-    <h1>LA FERME DE DIDIER ! ACCUEIL</h1>
+    <h1>Contact</h1>
 
     <div id="body">
         <a href="">Jouer</a>
-        <a href="contact">Contact</a>
-        <a href="login">Connexion</a>
-        <a href="inscription">Inscription</a>
+        <a href="">Contact</a>
+        <a href="User/connexion">Connexion</a>
+        <a href="User/registration">Inscription</a>
         <a href="">PDF du livre</a>
         <a href="">Prochain jeu</a>
     </div>
