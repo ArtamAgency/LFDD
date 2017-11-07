@@ -21,7 +21,7 @@
                 </div>
                 <div class="panel-body">
                     <?php $attributes = array("name" => "registrationform");
-                    echo form_open("User/registration", $attributes);?>
+                    echo form_open("/User/registrationHandler", $attributes);?>
                     <div class="form-group">
                         <label for="name">login</label>
                         <input class="form-control" name="login" placeholder="Your First Name" type="text" value="<?php echo set_value('login'); ?>" />
@@ -30,7 +30,7 @@
 
                     <div class="form-group">
                         <label for="email">Email ID</label>
-                        <input class="form-control" name="email" placeholder="Email-ID" type="text" value="<?php echo set_value('email'); ?>" />
+                        <input class="form-control" name="email" placeholder="Email" type="text" value="<?php echo set_value('email'); ?>" />
                         <span class="text-danger"><?php echo form_error('email'); ?></span>
                     </div>
 
@@ -51,7 +51,7 @@
                         <button name="cancel" type="reset" class="btn btn-default">Cancel</button>
                     </div>
                     <?php echo form_close(); ?>
-                    <?php echo $this->session->flashdata('msg'); ?>
+                    <?php echo $this->session->flashdata('change'); ?>
                 </div>
             </div>
         </div>

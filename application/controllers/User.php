@@ -124,13 +124,16 @@ class User extends CI_Controller
 
     public function registration()
     {
-        //set validation rules
+        $this->load->view('user/registration');
+    }
+
+    public function registrationHandler()
+    {
         $this->form_validation->set_rules('login', 'Pseudo', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required|md5');
         $this->form_validation->set_rules('cpassword', 'Password Confirmation', 'required|md5');
         $this->form_validation->set_rules('email', 'Email', 'required');
 
-        //validate form input
         if ($this->form_validation->run() == TRUE)
         {
             $data = array(
@@ -139,36 +142,63 @@ class User extends CI_Controller
                 'user_mail' => $this->input->post('email')
             );
 
-            $this->User_model->insertUser($data);
-        }
-        else
-        {
-            $this->load->view('user/registration');
-            /*//insert the user registration details into database
+            //$this->User_model->insertUser($data);
 
-            // insert form data into database
-            if ($this->user_model->insertUser($data))
+            if ($this->User_model->insertUser($data))
             {
                 // send email
-                if ($this->user_model->sendEmail($this->input->post('email')))
+
+                if ($this->sendEmail($data))
                 {
                     // successfully sent mail
-                    $this->session->set_flashdata('msg','<div class="alert alert-success text-center">Tu es maintenant inscrit ! Confirme ton inscription en cliquant sur le lien !</div>');
-                    redirect('user/registration');
+                    $this->session->set_flashdata('change','<div class="alert alert-success text-center">Tu es maintenant inscrit ! Confirme ton inscription en cliquant sur le lien !</div>');
+                    redirect('/user/registration');
                 }
                 else
                 {
                     // error
-                    $this->session->set_flashdata('msg','<div class="alert alert-danger text-center">L\'inscription n\'a pas marché !</div>');
-                    redirect('user/registration');
+                    $this->session->set_flashdata('change','<div class="alert alert-danger text-center">L\'inscription n\'a pas marché !</div>');
+                    redirect('/user/registration');
                 }
-            }*/
-            /*else
+            }
+            else
             {
                 // error
-                $this->session->set_flashdata('msg','<div class="alert alert-danger text-center">L\'inscription n\'a pas marché !</div>');
-                redirect('user/registration');
-            }*/
+                $this->session->set_flashdata('change','<div class="alert alert-danger text-center">L\'inscription n\'a pas marché !</div>');
+                redirect('/user/registration');
+            }
+        }
+        else
+        {
+            $this->load->view('user/registration');
+            //insert the user registration details into database
+
+            // insert form data into database
+        }
+    }
+
+    public function sendEmail($data)
+    {
+        require 'asset/PHPMailer-master/PHPMailerAutoload.php';
+
+        $mail = new PHPMailer;
+        //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+
+        $mail->setFrom('lafermededidier@gmail.com', 'La ferme de Didier');
+        $mail->addAddress($data['user_mail'], $data['user_name']);     // Add a recipient
+
+        $mail->isHTML(true);                                  // Set email format to HTML
+
+        $mail->Subject = 'Inscrption sur La Ferme de Didier !';
+        $mail->Body    = $data['user_name'].', Bienvenue sur la ferme de didier !';
+        $mail->AltBody = $data['user_name'].', Bienvenue sur la ferme de didier !';
+        if($mail->send())
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
         }
     }
 

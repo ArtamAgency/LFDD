@@ -50,7 +50,6 @@ class User_model extends CI_Model
 
     public function insertUser($data)
     {
-        var_dump($data);
         $this->db->set('user_name', $data['user_name']);
         $this->db->set('user_password', $data['user_password']);
         $this->db->set('user_mail', $data['user_mail']);
@@ -58,28 +57,10 @@ class User_model extends CI_Model
         $this->db->set('user_bantil', NULL);
         $this->db->set('user_admin', 0);
         $this->db->insert($this->tableUser);
+        return TRUE;
     }
 
     //send verification email to user's email id
-    public function sendEmail($to_email)
-    {
-        require 'asset/PHPMailer-master/src/PHPMailer.php';
-
-        $mail = new PHPMailer;
-
-        //$mail->SMTPDebug = 3;                               // Enable verbose debug output
-
-        $mail->setFrom($_POST['email'], $_POST['name']);
-        $mail->addAddress('antoine.menardie@gmail.com');     // Add a recipient
-
-        $mail->isHTML(true);                                  // Set email format to HTML
-
-        $mail->Subject = 'Inscrption sur La Ferme de Didier !';
-        $mail->Body    = $_POST['message'];
-        $mail->AltBody = $_POST['message'];
-
-
-    }
 
     //activate user account
     function verifyEmailID($key)
