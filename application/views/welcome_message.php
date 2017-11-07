@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div id="body">
         <a href="">Jouer</a>
         <a href="contact">Contact</a>
-        <a href="login">Connexion</a>
+        <a href="compte">Connexion</a>
         <a href="inscription">Inscription</a>
         <a href="">PDF du livre</a>
         <a href="">Prochain jeu</a>
