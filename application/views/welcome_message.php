@@ -21,7 +21,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <a href="">Prochain jeu</a>
     </div>
 
-
 </div>
 
 </body>

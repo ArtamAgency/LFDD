@@ -92,4 +92,14 @@ class Enigme_model extends CI_Model
         $this->db->insert($this->tableResoudre);
     }
 
+    public function getRanking()
+    {
+        return $this->db
+            ->join('user', 'user.user_id = resoudre.user_id')
+            ->order_by('enigme_id DESC, user_name ASC')
+            ->get($this->tableResoudre, 50, 0)
+            ->result_array()
+        ;
+    }
+
 }

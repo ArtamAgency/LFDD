@@ -43,11 +43,20 @@ class User extends CI_Controller
     public function account()
     {
         if(!empty($this->session->userdata('user_infos'))) {
-            $this->load->view('user/account');
+            $userId = $_SESSION['user_infos'][0]['user_id'];
+            $enigmeArray = $this->Enigme_model->getEnigmeEnCours($userId);
+            $data['enigme'] = $enigmeArray[0]['enigme_id'];
+            $this->load->view('user/account', $data);
         }
         else {
             redirect('/connexion');
         }
+    }
+
+    public function ranking()
+    {
+        $data['ranking'] = $this->Enigme_model->getRanking();
+        $this->load->view('ranking', $data);
     }
 
     public function cgPassword()

@@ -54,3 +54,9 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['compte'] = 'User/account';
+$route['connexion'] = 'User/connexion';
+$route['inscription'] = 'User/registration';
+$route['enigme/:num'] = 'enigme/drawEnigme/$1';
+$route['classement'] = 'User/ranking';
+$route['contact'] = 'Contact';
+$route['jouer'] = 'Enigme/startGame';

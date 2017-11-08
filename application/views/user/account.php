@@ -11,7 +11,8 @@
 <div align="center">
     <ul>
         <b>Nom : </b><?=$_SESSION['user_infos'][0]['user_name']?><br/>
-        <b>email : </b><?=$_SESSION['user_infos'][0]['user_mail']?>
+        <b>Email : </b><?=$_SESSION['user_infos'][0]['user_mail']?><br/>
+        <b>Enigme : </b><?= $enigme; ?> / 10
     </ul>
     <form class ="form_user form-horizontal" method="post" action="User/cgPassword">
         <h4>Changer de mot de passe</h4>

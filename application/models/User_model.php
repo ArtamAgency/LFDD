@@ -101,6 +101,7 @@ class User_model extends CI_Model
         ;
         return $query;
     }
+
     public function checkBan($userId)
     {
         $query = $this->db
@@ -111,4 +112,5 @@ class User_model extends CI_Model
         ;
         return $query;
     }
+
 }

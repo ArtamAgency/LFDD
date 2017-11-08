@@ -72,13 +72,13 @@ class Enigme extends CI_Controller
             {
                 $enigmeIdArray = $this->Enigme_model->getEnigmeEnCours($userId);
                 $enigmeId = $enigmeIdArray[0]['enigme_id'];
-                //header('Location: drawenigme/'.$enigmeId);
-                redirect('/enigme/'.$enigmeId);
+                //redirect('/enigme/'.$enigmeId);
+                $this->drawEnigme($enigmeId);
             }
         }
         else
         {
-            $this->load->view('user/login');
+            redirect('/connexion');
         }
     }
 
