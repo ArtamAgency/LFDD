@@ -6,14 +6,15 @@
 <div id="description">
     <div id="desc2">
         <img src="<?=base_url();?>asset/images/barn.svg"/>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tristique viverra risus, in semper lacus. Aliquam in tincidunt eros, at pharetra odio. Proin id enim fermentum, rutrum ipsum a, porttitor dui. Fusce sollicitudin magna urna. Curabitur at erat sit amet arcu aliquam vulputate. Proin in ipsum et dui elementum tempus ut sed purus. Suspendisse ut tincidunt urna, tempus egestas velit. Aliquam consequat gravida risus eget hendrerit. Etiam ut justo fermentum quam posuere laoreet ac id dolor. In fringilla ante ut est convallis elementum. Nam accumsan, nisl sed euismod aliquet, libero mi gravida quam, nec maximus mi ligula eleifend quam. Morbi molestie augue eget sem interdum egestas. Ut luctus arcu eros, id maximus leo blandit vitae. Sed interdum nec arcu non lobortis.</p>
+        <p style="text-align:center;">Didier le fermier a besoin d’aide, son poussin Célestin s’est échappé !</p>
+        <p style="text-align:center;">Parcours la ferme afin de retrouver le poussin de Didier. Durant les 10 étapes de ton aventure, découvre les animaux, leurs cris, leurs caractéristiques, et travaille même les mathématiques ! Utilise le livre, à télécharger ci-dessous, pour résoudre les différentes énigmes et progresser dans ta recherche du poussin.</p>
     </div>
     <div id="desc1">
         <img src="<?=base_url();?>asset/images/sheep.svg"/>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tristique viverra risus, in semper lacus. Aliquam in tincidunt eros, at pharetra odio. Proin id enim fermentum, rutrum ipsum a, porttitor dui. Fusce sollicitudin magna urna. Curabitur at erat sit amet arcu aliquam vulputate. Proin in ipsum et dui elementum tempus ut sed purus. Suspendisse ut tincidunt urna, tempus egestas velit. Aliquam consequat gravida risus eget hendrerit. Etiam ut justo fermentum quam posuere laoreet ac id dolor. In fringilla ante ut est convallis elementum. Nam accumsan, nisl sed euismod aliquet, libero mi gravida quam, nec maximus mi ligula eleifend quam. Morbi molestie augue eget sem interdum egestas. Ut luctus arcu eros, id maximus leo blandit vitae. Sed interdum nec arcu non lobortis.</p>
     </div>
     <div id="desc3">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tristique viverra risus, in semper lacus. Aliquam in tincidunt eros, at pharetra odio. Proin id enim fermentum, rutrum ipsum a, porttitor dui. Fusce sollicitudin magna urna. Curabitur at erat sit amet arcu aliquam vulputate. Proin in ipsum et dui elementum tempus ut sed purus. Suspendisse ut tincidunt urna, tempus egestas velit. Aliquam consequat gravida risus eget hendrerit. Etiam ut justo fermentum quam posuere laoreet ac id dolor. In fringilla ante ut est convallis elementum. Nam accumsan, nisl sed euismod aliquet, libero mi gravida quam, nec maximus mi ligula eleifend quam. Morbi molestie augue eget sem interdum egestas. Ut luctus arcu eros, id maximus leo blandit vitae. Sed interdum nec arcu non lobortis.</p>
+        <p>Pour progresser dans l’aventure, suis les consignes des énigmes sur le site et sur le livre ! Télécharge le livre ici</p>
         <img src="<?=base_url();?>asset/images/open_book.svg"/>
     </div>
 </div>

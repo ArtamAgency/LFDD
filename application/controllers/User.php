@@ -124,14 +124,21 @@ class User extends CI_Controller
         }
         else
         {
-            redirect('/compte');
+            show_404();
         }
     }
 
     public function setAdmin($userId, $status)
     {
-        $this->User_model->setAdminModel($userId, $status);
-        redirect('/admin');
+        if($_SESSION['user_infos'][0]['user_admin'] >= 1)
+        {
+            $this->User_model->setAdminModel($userId, $status);
+            redirect('/admin');
+        }
+        else
+        {
+            show_404();
+        }
     }
 
     public function registration()
