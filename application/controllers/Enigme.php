@@ -32,14 +32,43 @@ class Enigme extends CI_Controller
             }
         }
     }
-    protected function blockUser($userId)
+    public function blockUser24h($userId)
     {
-        $this->User_model->blockUserModel($userId);
+        if($_SESSION['user_infos'][0]['user_admin'] == 1)
+        {
+            $this->User_model->blockUserModel24h($userId);
+            redirect('/admin');
+        }
+        else
+        {
+            show_404();
+        }
     }
 
-    protected function unblockUser($userId)
+    public function blockUserDef($userId)
     {
-        $this->User_model->unblockUserModel($userId);
+        if($_SESSION['user_infos'][0]['user_admin'] == 1)
+        {
+            $this->User_model->blockUserModelDef($userId);
+            redirect('/admin');
+        }
+        else
+        {
+            show_404();
+        }
+    }
+
+    public function unblockUser($userId)
+    {
+        if($_SESSION['user_infos'][0]['user_admin'] == 1)
+        {
+            $this->User_model->unblockUserModel($userId);
+            redirect('/admin');
+        }
+        else
+        {
+            show_404();
+        }
     }
 
     protected function attemptsPlusOne($userId)
@@ -61,7 +90,6 @@ class Enigme extends CI_Controller
     {
         if($this->isConnected())
         {
-            //var_dump($_SESSION);
             $userId = $_SESSION['user_infos'][0]['user_id'];
             if($this->Enigme_model->isPlaying($userId) == 0)
             {
@@ -72,8 +100,7 @@ class Enigme extends CI_Controller
             {
                 $enigmeIdArray = $this->Enigme_model->getEnigmeEnCours($userId);
                 $enigmeId = $enigmeIdArray[0]['enigme_id'];
-                //redirect('/enigme/'.$enigmeId);
-                $this->drawEnigme($enigmeId);
+                redirect('/enigme/'.$enigmeId);
             }
         }
         else
@@ -104,6 +131,25 @@ class Enigme extends CI_Controller
             }
             else
             {
+                $userId = $_SESSION['user_infos'][0]['user_id'];
+                $timeBanArray = $this->User_model->getTimeBan($userId);
+                $timeBanTS = $timeBanArray[0]['user_bantil'];
+
+                $dtime = DateTime::createFromFormat("Y-m-d H:i:s", $timeBanTS);
+                $timestamp = $dtime->getTimestamp();
+                $banYear = date('Y', $timestamp);
+                $timeBan = date('d/m/Y', $timestamp);
+                $timeBan .= ' à ';
+                $timeBan .= date('H:i:s', $timestamp);
+
+                if($banYear == '2025')
+                {
+                    $this->session->set_flashdata('change', 'Ton compte a été banni définitivement par un modérateur');
+                }
+                else
+                {
+                    $this->session->set_flashdata('change', 'Ton compte est actuellement bloqué, il sera débloqué le ' . $timeBan);
+                }
                 redirect('/compte');
             }
         }
@@ -146,8 +192,6 @@ class Enigme extends CI_Controller
             {
                 $this->Enigme_model->incrementEnigme($enigmeId, $userId);
                 redirect('/enigme/'.$enigmeId);
-                //$_POST[] = NULL;
-                //header('Location: /projets3/enigme/'.$enigmeId);
             }
         }
     }

@@ -25,12 +25,12 @@ class User extends CI_Controller
         if($this->form_validation->run() === true && !empty($result))
         {
             $this->session->set_userdata('user_infos', $result);
-            $this->session->set_flashdata('connect', 'Connecté en tant que');
+            $this->session->set_flashdata('change', 'Connecté en tant que '.$_SESSION['user_infos'][0]['user_name']);
             redirect('/compte');
         }
         elseif($this->form_validation->run() == true && empty($result))
         {
-            $this->session->set_flashdata('noconnect', 'Aucun compte ne correspond à vos identifiants ');
+            $this->session->set_flashdata('change', 'Aucun compte ne correspond à tes identifiants ');
             $this->load->view('user/login');
         }
         else
@@ -110,11 +110,8 @@ class User extends CI_Controller
 
     public function manageUsers()
     {
-        // check si user_admin == 1 sinon rediriger vers account()
         if($_SESSION['user_infos'][0]['user_admin'] == 1)
         {
-            //load view backoffice
-            // afficher toutes les infos des utilisateurs avec un select * from users
             $data['users'] = $this->User_model->getAllUsers();
             $data['enigmes'] = $this->User_model->getAllEnigmes();
             $this->load->view('user/admin', $data);
@@ -124,12 +121,6 @@ class User extends CI_Controller
             redirect('/compte');
         }
     }
-
-    /*function index()
-    {
-        $this->registration();
-        $this->load->view('User_registration_view');
-    }*/
 
     public function registration()
     {

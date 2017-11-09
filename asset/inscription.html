@@ -3,44 +3,45 @@
 <head>
 	<title>La Ferme de Didier</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" type="text/css" href="jquery/animate.css">
-	<script type="text/javascript" src="jquery/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="jquery/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="jquery/jquery.textillate.js"></script>
-	<script type="text/javascript" src="jquery/jquery.fittext.js"></script>
-	<script type="text/javascript" src="jquery/jquery.lettering.js"></script>
+	<link rel="stylesheet" type="text/css" href="<?=base_url;?>asset/style.css">
+	<link rel="stylesheet" type="text/css" href="<?=base_url;?>asset/jquery/animate.css">
+	<script type="text/javascript" src="<?=base_url;?>asset/jquery/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="<?=base_url;?>asset/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="<?=base_url;?>asset/jquery/jquery.textillate.js"></script>
+	<script type="text/javascript" src="<?=base_url;?>asset/jquery/jquery.fittext.js"></script>
+	<script type="text/javascript" src="<?=base_url;?>asset/jquery/jquery.lettering.js"></script>
 </head>
 <body>
 	<div class="page-bg"></div>
-	<nav>
-		<div class="dark-bg"></div>
-		<a class="account" href="account.html">
-			<img src="images/user.png"/>
-			<p>Pseudo</p>
-		</a>
-		<div class="log">
-			<a href="connexion.html">Connexion</a>
-		</div>
-	</nav>
-	<a class="title" href="index.html">La ferme de Didier</a>
+	<?php $this->load->view('nav'); ?>
+	<a class="title" href="<?=base_url;?>">La ferme de Didier</a>
 	<div id="content">
 		<img src="images/sheep.svg">
 		<div id="center">
 			<h1>Rejoins l'univers de Didier et sa ferme !</h1>
 			<form>
 				<p>Pseudo</p>
-				<input class="input-text" type="text" name="pseudo">
-				<p>Mot de passe</p>
-				<input class="input-text" type="password" name="password">
-				<p>Confirmation du mot de passe</p>
-				<input class="input-text" type="password" name="confirm-password">
+				<input class="validate[required]" name="login" placeholder="Your First Name" type="text" value="<?php echo set_value('login'); ?>" />
+				<span class="text-danger"><?php echo form_error('login'); ?></span>
 				<p>Mail</p>
-				<input class="input-text" type="text" name="mail">
+				<input class="validate[required]" name="email" placeholder="Email" type="text" value="<?php echo set_value('email'); ?>" />
+				<span class="text-danger"><?php echo form_error('email'); ?></span>
+				<p>Mot de passe</p>
+				<input class="validate[required]" name="password" placeholder="Password" type="password" />
+				<span class="text-danger"><?php echo form_error('password'); ?></span>
+				<p>Confirmation du mot de passe</p>
+				<input class="validate[required]" name="cpassword" placeholder="Confirm Password" type="password" />
+				<span class="text-danger"><?php echo form_error('cpassword'); ?></span>
 				<input id="valider" type="submit" value="Valider">
 			</form>
+			<?php if ($this->session->flashdata('change')) : ?>
+			<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong><?= $this->session->flashdata('change')?><strong>
+			</div>
+			<?php endif ?>
 		</div>
-		<img src="images/pig.svg">
+		<img src="<?=base_url;?>asset/images/pig.svg">
 	</div>
 	<footer>
 		<a href="contact.html" >Contact</a>

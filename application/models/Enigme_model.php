@@ -96,6 +96,7 @@ class Enigme_model extends CI_Model
     {
         return $this->db
             ->join('user', 'user.user_id = resoudre.user_id')
+            ->where('enigme_id > 1')
             ->order_by('enigme_id DESC, user_name ASC')
             ->get($this->tableResoudre, 50, 0)
             ->result_array()

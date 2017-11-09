@@ -1,20 +1,14 @@
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Classement</title>
-</head>
+<?php $this->load->view('header') ?>
 <body>
     <h1>Classement</h1>
-
-    <table style="text-align: center; width: 50%; border: 1px solid #000;">
+    <div class="col-md-8 col-md-offset-2">
+    <table class="table table-bordered">
         <thead>
-        <th>#</th>
-        <th>Nom</th>
-        <th>Points</th>
+            <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Points</th>
+            </tr>
         </thead>
         <tbody>
         <?php
@@ -23,11 +17,16 @@
                 <tr>
                     <td><?= $i; ?></td>
                     <td><?= $row['user_name']; ?></td>
-                    <td><?= $row['enigme_id']*10; ?></td>
+                    <?php if($row['enigme_id'] == 10): ?>
+                        <td><?= $row['enigme_id']*10; ?></td>
+                    <?php else: ?>
+                        <td><?= ($row['enigme_id']-1)*10; ?></td>
+                    <?php endif ?>
                     <?php $i++; ?>
                 </tr>
         <?php endforeach; ?>
         </tbody>
     </table>
+    </div>
 </body>
 </html>

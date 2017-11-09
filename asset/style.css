@@ -6,6 +6,10 @@
 	font-family: "Skater Girls Rock";
 	src: url('fonts/SkaterGirlsRock.ttf');
 }
+@font-face {
+	font-family: "Lato";
+	src: url('fonts/Lato-Regular.ttf');
+}
 body{
 	position: relative;
 	margin: 0;
@@ -43,7 +47,7 @@ nav{
 }
 .title{
 	position: relative;
-	display: inline-block;
+	display: block;
 	color: #ee3333;
 	font-family: 'Alamain';
 	font-size: 55px;

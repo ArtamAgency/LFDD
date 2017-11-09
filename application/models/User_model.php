@@ -8,6 +8,8 @@ class User_model extends CI_Model
     {
         return $this->db
             ->join('resoudre', 'resoudre.user_id = user.user_id')
+            ->order_by('user_admin DESC')
+            ->order_by('user_name DESC')
             ->get($this->tableUser)
             ->result_array()
         ;
@@ -98,6 +100,28 @@ class User_model extends CI_Model
     public function blockUserModel($userId)
     {
         $date = date('Y-m-d H:i:s', strtotime('+30 minutes'));
+        $this->db
+            ->set('user_blocked', 1)
+            ->set('user_bantil', $date, TRUE)
+            ->where('user_id', $userId)
+            ->update($this->tableUser)
+        ;
+    }
+
+    public function blockUserModel24h($userId)
+    {
+        $date = date('Y-m-d H:i:s', strtotime('+1 day'));
+        $this->db
+            ->set('user_blocked', 1)
+            ->set('user_bantil', $date, TRUE)
+            ->where('user_id', $userId)
+            ->update($this->tableUser)
+        ;
+    }
+
+    public function blockUserModelDef($userId)
+    {
+        $date = '2025-01-01 00:00:00';
         $this->db
             ->set('user_blocked', 1)
             ->set('user_bantil', $date, TRUE)

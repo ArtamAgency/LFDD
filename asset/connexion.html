@@ -13,16 +13,6 @@
 </head>
 <body>
 	<div class="page-bg"></div>
-	<nav>
-		<div class="dark-bg"></div>
-		<a class="account" href="account.html">
-			<img src="images/user.png"/>
-			<p>Pseudo</p>
-		</a>
-		<div class="log">
-			<a href="inscription.html">Inscription</a>
-		</div>
-	</nav>
 	<a class="title" href="index.html">La ferme de Didier</a>
 	<div id="content">
 		<img src="images/sheep.svg">
@@ -30,11 +20,19 @@
 			<h1>Rejoins l'univers de Didier et sa ferme !</h1>
 			<form>
 				<p>Pseudo</p>
-				<input class="input-text" type="text" name="pseudo">
+				<input class="validate[required] input-text" type="text" name="login" placeholder="Ton pseudo" value="<?php echo set_value('login'); ?>">
+				<?php echo form_error('login'); ?>
 				<p>Mot de passe</p>
-				<input class="input-text" type="password" name="password">
+				<input class="validate[required] input-text" type="password" id="inputPassword" placeholder="Ton mot de passe" name="password">
+				<?php echo form_error('password'); ?>
 				<input id="valider" type="submit" value="Valider">
 			</form>
+			<?php if ($this->session->flashdata('change')) : ?>
+			<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong><?= $this->session->flashdata('change')?><strong>
+			</div>
+			<?php endif ?>
 		</div>
 		<img src="images/pig.svg">
 	</div>
