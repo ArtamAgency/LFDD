@@ -60,6 +60,31 @@ class User_model extends CI_Model
         return TRUE;
     }
 
+    public function userExists($data)
+    {
+        $queryUser = $this->db
+            ->select('user_name')
+            ->where('user_name', $data['user_name'])
+            ->get($this->tableUser)
+            ->num_rows()
+        ;
+
+        $queryMail = $this->db
+            ->select('user_mail')
+            ->where('user_mail', $data['user_mail'])
+            ->get($this->tableUser)
+            ->num_rows()
+        ;
+        if($queryUser == 0 && $queryMail == 0)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
     //send verification email to user's email id
 
     //activate user account
@@ -72,7 +97,7 @@ class User_model extends CI_Model
 
     public function blockUserModel($userId)
     {
-        $date = date('Y-m-d H:i:s', strtotime('+1 day'));
+        $date = date('Y-m-d H:i:s', strtotime('+30 minutes'));
         $this->db
             ->set('user_blocked', 1)
             ->set('user_bantil', $date, TRUE)

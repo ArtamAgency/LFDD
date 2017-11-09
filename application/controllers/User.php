@@ -151,29 +151,35 @@ class User extends CI_Controller
                 'user_mail' => $this->input->post('email')
             );
 
-            //$this->User_model->insertUser($data);
-
-            if ($this->User_model->insertUser($data))
+            if($this->User_model->userExists($data))
             {
-                // send email
-
-                if ($this->sendEmail($data))
+                if ($this->User_model->insertUser($data))
                 {
-                    // successfully sent mail
-                    $this->session->set_flashdata('change','<div class="alert alert-success text-center">Tu es maintenant inscrit ! Confirme ton inscription en cliquant sur le lien !</div>');
-                    redirect('/inscription');
+                    // send email
+
+                    if ($this->sendEmail($data))
+                    {
+                        // successfully sent mail
+                        $this->session->set_flashdata('change', '<div class="alert alert-success text-center">Tu es maintenant inscrit ! Confirme ton inscription en cliquant sur le lien !</div>');
+                        redirect('/inscription');
+                    }
+                    else
+                    {
+                        // error
+                        $this->session->set_flashdata('change', '<div class="alert alert-danger text-center">L\'inscription n\'a pas marché !</div>');
+                        redirect('/inscription');
+                    }
                 }
                 else
                 {
                     // error
-                    $this->session->set_flashdata('change','<div class="alert alert-danger text-center">L\'inscription n\'a pas marché !</div>');
+                    $this->session->set_flashdata('change', '<div class="alert alert-danger text-center">L\'inscription n\'a pas marché !</div>');
                     redirect('/inscription');
                 }
             }
             else
             {
-                // error
-                $this->session->set_flashdata('change','<div class="alert alert-danger text-center">L\'inscription n\'a pas marché !</div>');
+                $this->session->set_flashdata('change', 'Cet e-mail ou ce pseudo est déjà utilisé');
                 redirect('/inscription');
             }
         }
@@ -199,8 +205,8 @@ class User extends CI_Controller
         $mail->isHTML(true);                                  // Set email format to HTML
 
         $mail->Subject = 'Inscrption sur La Ferme de Didier !';
-        $mail->Body    = $data['user_name'].', Bienvenue sur la ferme de didier !';
-        $mail->AltBody = $data['user_name'].', Bienvenue sur la ferme de didier !';
+        $mail->Body    = $data['user_name'].', Bienvenue sur la ferme de didier ! <br/> Pour commencer à jouer, <a href="'.base_url().'/connexion">connecte-toi</a>';
+        $mail->AltBody = $data['user_name'].'Bienvenue sur la ferme de didier ! <br/> Pour commencer à jouer, <a href="\'.base_url().\'/connexion">connecte-toi</a>';
         if($mail->send())
         {
             return TRUE;
