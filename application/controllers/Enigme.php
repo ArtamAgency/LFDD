@@ -34,7 +34,7 @@ class Enigme extends CI_Controller
     }
     public function blockUser24h($userId)
     {
-        if($_SESSION['user_infos'][0]['user_admin'] == 1)
+        if($_SESSION['user_infos'][0]['user_admin'] >= 1)
         {
             $this->User_model->blockUserModel24h($userId);
             redirect('/admin');
@@ -47,7 +47,7 @@ class Enigme extends CI_Controller
 
     public function blockUserDef($userId)
     {
-        if($_SESSION['user_infos'][0]['user_admin'] == 1)
+        if($_SESSION['user_infos'][0]['user_admin'] >= 1)
         {
             $this->User_model->blockUserModelDef($userId);
             redirect('/admin');
@@ -60,7 +60,7 @@ class Enigme extends CI_Controller
 
     public function unblockUser($userId)
     {
-        if($_SESSION['user_infos'][0]['user_admin'] == 1)
+        if($_SESSION['user_infos'][0]['user_admin'] >= 1)
         {
             $this->User_model->unblockUserModel($userId);
             redirect('/admin');

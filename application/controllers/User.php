@@ -45,7 +45,13 @@ class User extends CI_Controller
         if(!empty($this->session->userdata('user_infos'))) {
             $userId = $_SESSION['user_infos'][0]['user_id'];
             $enigmeArray = $this->Enigme_model->getEnigmeEnCours($userId);
-            $data['enigme'] = $enigmeArray[0]['enigme_id'];
+            if(isset($enigmeArray[0]))
+            {
+                $data['enigme'] = $enigmeArray[0]['enigme_id'];
+            }
+            else{
+                $data['enigme'] = '1';
+            }
             $this->load->view('user/account', $data);
         }
         else {
@@ -110,7 +116,7 @@ class User extends CI_Controller
 
     public function manageUsers()
     {
-        if($_SESSION['user_infos'][0]['user_admin'] == 1)
+        if($_SESSION['user_infos'][0]['user_admin'] >= 1)
         {
             $data['users'] = $this->User_model->getAllUsers();
             $data['enigmes'] = $this->User_model->getAllEnigmes();
@@ -120,6 +126,12 @@ class User extends CI_Controller
         {
             redirect('/compte');
         }
+    }
+
+    public function setAdmin($userId, $status)
+    {
+        $this->User_model->setAdminModel($userId, $status);
+        redirect('/admin');
     }
 
     public function registration()
@@ -144,26 +156,14 @@ class User extends CI_Controller
 
             if($this->User_model->userExists($data))
             {
-                if ($this->User_model->insertUser($data))
+                if ($this->User_model->insertUser($data) == TRUE)
                 {
-                    // send email
-
-                    if ($this->sendEmail($data))
-                    {
-                        // successfully sent mail
-                        $this->session->set_flashdata('change', '<div class="alert alert-success text-center">Tu es maintenant inscrit ! Confirme ton inscription en cliquant sur le lien !</div>');
-                        redirect('/inscription');
-                    }
-                    else
-                    {
-                        // error
-                        $this->session->set_flashdata('change', '<div class="alert alert-danger text-center">L\'inscription n\'a pas marché !</div>');
-                        redirect('/inscription');
-                    }
+                    $this->sendEmail($data);
+                    $this->session->set_flashdata('change', '<div class="alert alert-success text-center">Tu es maintenant inscrit ! pour commencer à jouer, <a href="'.base_url().'connexion">connecte toi</a>.</div>');
+                    redirect('/inscription');
                 }
                 else
                 {
-                    // error
                     $this->session->set_flashdata('change', '<div class="alert alert-danger text-center">L\'inscription n\'a pas marché !</div>');
                     redirect('/inscription');
                 }

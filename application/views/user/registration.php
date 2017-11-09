@@ -7,7 +7,7 @@
     <img src="<?=base_url();?>asset/images/sheep.svg">
     <div id="center">
         <h1>Rejoins l'univers de Didier et sa ferme !</h1>
-        <form>
+        <form method="POST" action="<?=base_url();?>User/registrationHandler">
             <p>Pseudo</p>
             <input class="validate[required] input-text" name="login" placeholder="Your First Name" type="text" value="<?php echo set_value('login'); ?>" />
             <span class="text-danger"><?php echo form_error('login'); ?></span>

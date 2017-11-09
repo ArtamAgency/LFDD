@@ -97,6 +97,15 @@ class User_model extends CI_Model
         return $this->db->update($this->tableUser, $data);
     }
 
+    public function setAdminModel($userId, $status)
+    {
+        $this->db
+            ->where('user_id', $userId)
+            ->set('user_admin', $status)
+            ->update($this->tableUser)
+        ;
+    }
+
     public function blockUserModel($userId)
     {
         $date = date('Y-m-d H:i:s', strtotime('+30 minutes'));

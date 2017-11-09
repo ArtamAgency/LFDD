@@ -51,6 +51,7 @@
                     <th>Enigme en cours</th>
                     <th>Éssais</th>
                     <th>Temps passé</th>
+                    <th>Admin</th>
                     <th>Bloquage</th>
                 </thead>
                 <tbody>
@@ -75,15 +76,30 @@
                             <td><?= $user['enigme_id'] ?></td>
                             <td><?= $user['user_attempts'] ?></td>
                             <td><?= $user['user_spentime'] ?></td>
-                            <?php if($user['user_blocked'] == 0): ?>
                             <td>
-                                <a href="Enigme/blockUser24h/<?=$user['user_id'];?>">24h</a> /
-                                <a href="Enigme/blockUserDef/<?=$user['user_id'];?>">Définitif</a>
+                                <?php if($user['user_admin'] == 1): ?>
+                                <a href="<?=base_url();?>User/setAdmin/<?=$user['user_id'];?>/0">Supprimer les droit</a>
+                                <?php elseif($user['user_admin'] == 0): ?>
+                                <a href="<?=base_url();?>User/setAdmin/<?=$user['user_id'];?>/1">Donner les droits</a>
+                                <?php else: ?>
+                                Super admin
+                                <?php endif ?>
                             </td>
-                            <?php else: ?>
+                            <?php if($user['user_admin'] < 2): ?>
+                                <?php if($user['user_blocked'] == 0): ?>
                                 <td>
-                                    <a href="Enigme/unblockUser/<?= $user['user_id'];?>">Débloquer</a>
+                                    <a href="Enigme/blockUser24h/<?=$user['user_id'];?>">24h</a> /
+                                    <a href="Enigme/blockUserDef/<?=$user['user_id'];?>">Définitif</a>
                                 </td>
+                                <?php else: ?>
+                                    <td>
+                                        <a href="Enigme/unblockUser/<?= $user['user_id'];?>">Débloquer</a>
+                                    </td>
+                                <?php endif ?>
+                            <?php else: ?>
+                                <?php if($user['user_blocked'] == 0): ?>
+                                    <td>Non bloquable</td>
+                                <?php endif ?>
                             <?php endif ?>
                         </tr>
                     <?php endforeach ?>
