@@ -1,9 +1,7 @@
 <?php
-
 class User_model extends CI_Model
 {
     protected $tableUser = 'user';
-
     public function getAllUsers()
     {
         return $this->db
@@ -12,14 +10,12 @@ class User_model extends CI_Model
             ->order_by('user_name DESC')
             ->get($this->tableUser)
             ->result_array()
-        ;
+            ;
     }
-
     public function getAllEnigmes()
     {
         return $this->db->get('enigme')->result_array();
     }
-
     public function userLogin($login, $password)
     {
         return $this->db
@@ -28,28 +24,24 @@ class User_model extends CI_Model
             ->where('user_password', $password)
             ->get()
             ->result_array()
-        ;
+            ;
     }
-
     public function updatePassword($password)
     {
         $this->db->set('user_password', $password);
         $this->db->where('user_id', $_SESSION['user_infos'][0]['user_id']);
         $this->db->update($this->tableUser);
     }
-
     public function getUsers()
     {
         $this->db->get($this->tableUser);
     }
-
     public function updateMail($mail)
     {
         $this->db->set('user_mail', $mail);
         $this->db->where('user_id', $_SESSION['user_infos'][0]['user_id']);
         $this->db->update($this->tableUser);
     }
-
     public function insertUser($data)
     {
         $this->db->set('user_name', $data['user_name']);
@@ -61,7 +53,6 @@ class User_model extends CI_Model
         $this->db->insert($this->tableUser);
         return TRUE;
     }
-
     public function userExists($data)
     {
         $queryUser = $this->db
@@ -70,7 +61,6 @@ class User_model extends CI_Model
             ->get($this->tableUser)
             ->num_rows()
         ;
-
         $queryMail = $this->db
             ->select('user_mail')
             ->where('user_mail', $data['user_mail'])
@@ -86,9 +76,7 @@ class User_model extends CI_Model
             return FALSE;
         }
     }
-
     //send verification email to user's email id
-
     //activate user account
     function verifyEmailID($key)
     {
@@ -96,7 +84,6 @@ class User_model extends CI_Model
         $this->db->where('user_mail', $key);
         return $this->db->update($this->tableUser, $data);
     }
-
     public function setAdminModel($userId, $status)
     {
         $this->db
@@ -105,7 +92,6 @@ class User_model extends CI_Model
             ->update($this->tableUser)
         ;
     }
-
     public function blockUserModel($userId)
     {
         $date = date('Y-m-d H:i:s', strtotime('+30 minutes'));
@@ -116,7 +102,6 @@ class User_model extends CI_Model
             ->update($this->tableUser)
         ;
     }
-
     public function blockUserModel24h($userId)
     {
         $date = date('Y-m-d H:i:s', strtotime('+1 day'));
@@ -127,7 +112,6 @@ class User_model extends CI_Model
             ->update($this->tableUser)
         ;
     }
-
     public function blockUserModelDef($userId)
     {
         $date = '2025-01-01 00:00:00';
@@ -138,7 +122,6 @@ class User_model extends CI_Model
             ->update($this->tableUser)
         ;
     }
-
     public function unblockUserModel($userId)
     {
         $this->db
@@ -148,7 +131,6 @@ class User_model extends CI_Model
             ->update($this->tableUser)
         ;
     }
-
     public function getTimeBan($userId)
     {
         $query = $this->db
@@ -159,7 +141,6 @@ class User_model extends CI_Model
         ;
         return $query;
     }
-
     public function checkBan($userId)
     {
         $query = $this->db
@@ -170,5 +151,4 @@ class User_model extends CI_Model
         ;
         return $query;
     }
-
 }
