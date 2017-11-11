@@ -104,15 +104,16 @@ class User extends CI_Controller
         }
     }
 
-    public function cgPasswordMail($data)
+    protected function cgPasswordMail($data)
     {
         require 'asset/PHPMailer-master/PHPMailerAutoload.php';
         $mail = new PHPMailer;
         //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+        $mail->CharSet = 'UTF-8';
         $mail->setFrom('lafermededidier@gmail.com', 'La ferme de Didier');
         $mail->addAddress($data['user_mail'], $data['user_name']);     // Add a recipient
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'Inscrption sur La Ferme de Didier !';
+        $mail->Subject = 'Changement de mot de passe';
         $mail->Body    = $data['user_name'].', Tu as changé ton mot de passe. Si tu n\'es pas à l\origine de cette action, fais-le savoir en répondant à ce mail';
         $mail->AltBody = $data['user_name'].', Tu as changé ton mot de passe. Si tu n\'es pas à l\origine de cette action, fais-le savoir en répondant à ce mail';
         if($mail->send())
@@ -124,15 +125,16 @@ class User extends CI_Controller
             return FALSE;
         }
     }
-    public function cgMailMail($data)
+    protected function cgMailMail($data)
     {
         require 'asset/PHPMailer-master/PHPMailerAutoload.php';
         $mail = new PHPMailer;
         //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+        $mail->CharSet = 'UTF-8';
         $mail->setFrom('lafermededidier@gmail.com', 'La ferme de Didier');
         $mail->addAddress($data['curmail'], $data['user_name']);     // Add a recipient
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'Inscrption sur La Ferme de Didier !';
+        $mail->Subject = 'Changement d\'e-mail';
         $mail->Body    = $data['user_name'].', tu as changé ton e-mail. Celui-ci est maintenant <b>'.$data['newmail'].'</b>. <br/><br/> Si tu n\'es pas à l\origine de cette action, fais-le savoir en répondant à ce mail';
         $mail->AltBody = $data['user_name'].', tu as changé ton e-mail. Celui-ci est maintenant <b>'.$data['newmail'].'</b>. <br/><br/> Si tu n\'es pas à l\origine de cette action, fais-le savoir en répondant à ce mail';
         if($mail->send())
@@ -223,6 +225,7 @@ class User extends CI_Controller
         require 'asset/PHPMailer-master/PHPMailerAutoload.php';
         $mail = new PHPMailer;
         //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+        $mail->CharSet = 'UTF-8';
         $mail->setFrom('lafermededidier@gmail.com', 'La ferme de Didier');
         $mail->addAddress($data['user_mail'], $data['user_name']);     // Add a recipient
         $mail->isHTML(true);                                  // Set email format to HTML

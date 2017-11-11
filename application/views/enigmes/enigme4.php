@@ -46,7 +46,7 @@
                 <h2>DESCRIPTION</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tristique viverra risus, in semper lacus. Aliquam in tincidunt eros, at pharetra odio. Proin id enim fermentum, rutrum ipsum a, porttitor dui.</p>
             </div>
-            <form action="">
+            <form method="POST" action="Enigme/enigmeHandler/4">
                 <input class="input-hidden" name="response" type="hidden" value="">
                 <input class="next" type="submit" value="ÉNIGME SUIVANTE">
             </form>

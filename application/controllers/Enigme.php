@@ -37,6 +37,7 @@ class Enigme extends CI_Controller
         if($_SESSION['user_infos'][0]['user_admin'] >= 1)
         {
             $this->User_model->blockUserModel24h($userId);
+            $this->mailBlock($userId, '24h');
             redirect('/admin');
         }
         else
@@ -50,6 +51,7 @@ class Enigme extends CI_Controller
         if($_SESSION['user_infos'][0]['user_admin'] >= 1)
         {
             $this->User_model->blockUserModelDef($userId);
+            $this->mailBlock($userId, 'définitif');
             redirect('/admin');
         }
         else
@@ -63,11 +65,59 @@ class Enigme extends CI_Controller
         if($_SESSION['user_infos'][0]['user_admin'] >= 1)
         {
             $this->User_model->unblockUserModel($userId);
+            $this->mailUnBlock($userId);
             redirect('/admin');
         }
         else
         {
             show_404();
+        }
+    }
+
+
+    protected function mailBlock($userId, $duration)
+    {
+        require 'asset/PHPMailer-master/PHPMailerAutoload.php';
+        $dataArray = $this->User_model->getUserById($userId);
+        $data = $dataArray[0];
+        $mail = new PHPMailer;
+        //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+        $mail->CharSet = 'UTF-8';
+        $mail->setFrom('lafermededidier@gmail.com', 'La ferme de Didier');
+        $mail->addAddress($data['user_mail'], $data['user_name']);     // Add a recipient
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = 'Compte bloqué';
+        $mail->Body    = $data['user_name'].', Ton compte a été bloqué par un administrateur pour la durée suivante : <b>'.$duration.'</b>';
+        $mail->AltBody = $data['user_name'].', Ton compte a été bloqué par un administrateur pour la durée suivante : <b>'.$duration.'</b>';
+        if($mail->send())
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+    protected function mailUnBlock($userId)
+    {
+        require 'asset/PHPMailer-master/PHPMailerAutoload.php';
+        $data = $this->User_model->getUserById($userId);
+        $mail = new PHPMailer;
+        //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+        $mail->CharSet = 'UTF-8';
+        $mail->setFrom('lafermededidier@gmail.com', 'La ferme de Didier');
+        $mail->addAddress($data[0]['user_mail'], $data[0]['user_name']);     // Add a recipient
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = 'Compte débloqué';
+        $mail->Body    = $data[0]['user_name'].', Ton compte n\'est plus bloqué ! <br/> <a href="'.base_url().'jouer">Clique ici</a> pour venir jouer';
+        $mail->AltBody = $data[0]['user_name'].', Ton compte n\'est plus bloqué ! <br/> <a href="'.base_url().'jouer">Clique ici</a> pour venir jouer';
+        if($mail->send())
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
         }
     }
 

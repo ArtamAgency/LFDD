@@ -9,10 +9,10 @@
         <h1>Rejoins l'univers de Didier et sa ferme !</h1>
         <form method="POST" action="<?=base_url();?>connexion">
             <p>Pseudo</p>
-            <input class="validate[required] input-text" type="text" name="login" placeholder="Ton pseudo" value="<?php echo set_value('login'); ?>">
+            <input class="validate[required] input-text" type="text" name="login" value="<?php echo set_value('login'); ?>">
             <?php echo form_error('login'); ?>
             <p>Mot de passe</p>
-            <input class="validate[required] input-text" type="password" id="inputPassword" placeholder="Ton mot de passe" name="password">
+            <input class="validate[required] input-text" type="password" id="inputPassword" name="password">
             <?php echo form_error('password'); ?>
             <input id="valider" type="submit" value="Valider">
         </form>

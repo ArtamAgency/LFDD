@@ -36,6 +36,15 @@ class User_model extends CI_Model
     {
         $this->db->get($this->tableUser);
     }
+
+    public function getUserById($userId)
+    {
+        return $this->db
+            ->where('user_id', $userId)
+            ->get($this->tableUser)
+            ->result_array()
+        ;
+    }
     public function updateMail($mail)
     {
         $this->db->set('user_mail', $mail);

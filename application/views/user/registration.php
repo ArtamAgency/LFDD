@@ -9,16 +9,16 @@
         <h1>Rejoins l'univers de Didier et sa ferme !</h1>
         <form method="POST" action="<?=base_url();?>User/registrationHandler">
             <p>Pseudo</p>
-            <input class="validate[required] input-text" name="login" placeholder="Your First Name" type="text" value="<?php echo set_value('login'); ?>" />
+            <input class="validate[required] input-text" name="login" type="text" value="<?php echo set_value('login'); ?>" />
             <span class="text-danger"><?php echo form_error('login'); ?></span>
             <p>Mail</p>
-            <input class="validate[required] input-text" name="email" placeholder="Email" type="text" value="<?php echo set_value('email'); ?>" />
+            <input class="validate[required] input-text" name="email" type="text" value="<?php echo set_value('email'); ?>" />
             <span class="text-danger"><?php echo form_error('email'); ?></span>
             <p>Mot de passe</p>
-            <input class="validate[required] input-text" name="password" placeholder="Password" type="password" />
+            <input class="validate[required] input-text" name="password" type="password" />
             <span class="text-danger"><?php echo form_error('password'); ?></span>
             <p>Confirmation du mot de passe</p>
-            <input class="validate[required] input-text" name="cpassword" placeholder="Confirm Password" type="password" />
+            <input class="validate[required] input-text" name="cpassword" type="password" />
             <span class="text-danger"><?php echo form_error('cpassword'); ?></span>
             <input id="valider" type="submit" value="Valider">
         </form>
