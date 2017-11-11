@@ -1,72 +1,220 @@
 <?php $this->load->view('header') ?>
 <body>
+<div class="page-bg"></div>
 <?php $this->load->view('nav'); ?>
-<div align="center">
-    <ul>
-        <b>Nom : </b><?=$_SESSION['user_infos'][0]['user_name']?><br/>
-        <b>Email : </b><?=$_SESSION['user_infos'][0]['user_mail']?><br/>
-        <?php if($enigme == 10): ?>
-        <b>Enigme(s) validée(s) : </b><?= $enigme; ?> / 10
-        <?php else:
-            $enigme -= 1;
-        ?>
-        <b>Enigme(s) validée(s) : </b><?= $enigme; ?> / 10
-        <?php endif ?>
-    </ul>
-    <form class ="form_user form-horizontal" method="post" action="User/cgPassword">
-        <h4>Changer de mot de passe</h4>
-        <div class="control-group">
-            <div class="controls">
-                <input class="validate[required]" type="password" name="curpaswd" placeholder="Mot de passe actuel">
-                <?php echo form_error('curpaswd'); ?>
+<a class="title" href="<?=base_url();?>">La ferme de Didier</a>
+	<div id="content">
+		<img src="<?=base_url();?>asset/images/sheep.svg">
+    <div id="center">
+        <h1>Profil  <a href="User/ranking">Classement</a></h1>
+        
+        <div id="center-bottom">
+            <div class="infos-compte">
+                <p>Pseudo :</p><?=$_SESSION['user_infos'][0]['user_name']?><br/>
+                <p>Email :</p><?=$_SESSION['user_infos'][0]['user_mail']?><br/>
+                <?php if($enigme == 10): ?>
+                    <b>Enigme(s) validée(s) : </b><?= $enigme; ?> / 10
+                <?php else:
+                    $enigme -= 1;
+                    ?>
+                    <b>Enigme(s) validée(s) : </b><?= $enigme; ?> / 10
+                <?php endif ?>
             </div>
-        </div>
+            <div class="change-form">
+                <form class="pswd-form" method="post" action="User/cgPassword">
+                    <h1>Changer le mot de passe</h1>
+                    <input class="validate[required] input-text" type="password" name="curpaswd" placeholder="Mot de passe actuel">
+                    <?php echo form_error('curpaswd'); ?>
 
-        <div class="control-group">
-            <div class="controls">
-                <input class="validate[required]" type="password" placeholder="Nouveau mot de passe" name="newpaswd">
-                <?php echo form_error('newpaswd'); ?>
+                    <input class="validate[required] input-text" type="password" placeholder="Nouveau mot de passe" name="newpaswd">
+                    <?php echo form_error('newpaswd'); ?>
+
+                    <input class="validate[required] input-text" type="password" placeholder="Répéter nouveau mot de passe" name="rpnewpaswd">
+                    <?php echo form_error('rpnewpaswd'); ?>
+
+                    <input class="valider" type="submit" value="Ok">
+                </form>
+                <form class="mail-form" method="post" action="User/cgMail">
+                    <h1>Changer l'email</h1>
+                    <input class="validate[required] input-text" type="email" name="curmail" placeholder="Email actuel">
+                    <?php echo form_error('curmail'); ?>
+                    <input class="validate[required] input-text" type="email" placeholder="Nouvel email" name="newmail">
+                    <?php echo form_error('newmail'); ?>
+                    <input class="valider" type="submit" value="Ok">
+                    <form>
             </div>
+            <a class="logout" href="User/logout">Se déconnecter</a>
         </div>
+    </div>
+    <img src="<?=base_url();?>asset/images/pig.svg">
+    </div>
+    <footer>
+        <a href="<?=base_url();?>Contact" >Contact</a>
+        <a href="#">Nos jeux</a>
+        <a class="infos-legales" href="#">Informations légales</a>
+    </footer>
 
-        <div class="control-group">
-            <div class="controls">
-                <input class="validate[required]" type="password" placeholder="Répéter nouveau mot de passe" name="rpnewpaswd">
-                <?php echo form_error('rpnewpaswd'); ?>
-            </div>
-        </div>
 
-        <button class="btn btn-large btn-primary" type="submit">Valider</button>
+    <!--	JAVASCRIPT 	-->
 
-    </form>
+    <script type="text/javascript">
 
-    <form class ="form_user form-horizontal" method="post" action="User/cgMail">
-        <h4>Changer email</h4>
-        <div class="control-group">
-            <div class="controls">
-                <input class="validate[required]" type="email" name="curmail" placeholder="Email actuel">
-                <?php echo form_error('curmail'); ?>
-            </div>
-        </div>
+        $(document).ready(function(){
 
-        <div class="control-group">
-            <div class="controls">
-                <input class="validate[required]" type="email" placeholder="Nouvel email" name="newmail">
-                <?php echo form_error('newmail'); ?>
-            </div>
-        </div>
+            $('#content').find('img').click(function(){
+                $(this).addClass('animated rubberBand').one('animationend', function(){
+                    $(this).removeClass('animated rubberBand');
+                });
+            });
 
-        <button class="btn btn-large btn-primary" type="submit">Valider</button>
+            $('.logout').mouseover(function(){
+                $(this).css('transform', 'scale(0.98)');
+            });
+            $('.logout').mouseout(function(){
+                $(this).css('transform', 'scale(1)');
+            });
+        });
 
-    </form>
-    <?php if ($this->session->flashdata('change')) : ?>
-        <div class="alert alert-error">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong><?= $this->session->flashdata('change')?><strong>
-        </div>
-    <?php endif ?>
-    <br/>
-    <a href="User/logout">Se déconnecter</a>
-</div>
+    </script>
+
+    <style type="text/css">
+
+
+
+        #content{
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 50px 0 100px 0;
+        }
+        #content img{
+            position: relative;
+            display: inline-block;
+            width: 200px;
+            margin: 50px;
+        }
+        #center{
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 800px;
+        }
+        #center h1{
+            position: relative;
+            display: inline-block;
+            font-family: 'Skater Girls Rock';
+            font-size: 30px;
+            color: #222222;
+            font-weight: 500;
+            background: rgba(0,0,0,0.1);
+            width: 100%;
+            padding: 25px 0 20px 0;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        #center h1 a {
+            text-decoration: none;
+            padding-left: 50px;
+        }
+
+        #center h1 a:visited {
+            color: #222222;
+        }
+
+        #center-bottom{
+            position: relative;
+            display: inline-block;
+            background: rgba(0,0,0,0.1);
+            width: 100%;
+        }
+        #center-bottom h1{
+            background: none;
+            padding: 0;
+        }
+        .infos-compte{
+            display: inline-block;
+            text-align: left;
+            width: 40%;
+        }
+        .infos-compte p{
+            font-family: 'Skater Girls Rock';
+            font-size: 20px;
+            color: #222222;
+        }
+        .change-form{
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            margin: 40px 0 0 0;
+        }
+        form{
+            position: relative;
+            display: inline-block;
+            font-family: 'Skater Girls Rock';
+            color: #222222;
+            width: 48%;
+            border-radius: 5px;
+        }
+        .input-text{
+            position: relative;
+            display: inline-block;
+            font-family: 'Skater Girls Rock';
+            font-size: 25px;
+            color: #222222;
+            border: none;
+            width: 80%;
+            height: 35px;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .input-text:focus{
+            outline: none;
+        }
+        .logout{
+            display: inline-block;
+            font-family: 'Skater Girls Rock';
+            font-size: 35px;
+            color: #ffffff;
+            background: #ee3333;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px 0 15px;
+            margin: 20px;
+            cursor: pointer;
+            user-select: none;
+            transition: 0.2s ease;
+        }
+
+        @media screen and (max-width: 1080px){
+            #content{
+                flex-direction: column;
+            }
+            #center{
+                width: 900px;
+            }
+            #center h1{
+                font-size: 50px;
+            }
+            form p{
+                font-size: 45px;
+            }
+            .input-text{
+                height: 80px;
+                font-size: 45px;
+            }
+            .logout{
+                padding: 15px 25px 0 25px;
+            }
+            .infos-compte p{
+                font-size: 35px;
+            }
+        }
+    </style>
 </body>
 </html>
