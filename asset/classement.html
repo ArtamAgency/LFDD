@@ -21,27 +21,41 @@
 			<p>Pseudo</p>
 		</a>
 		<div class="log">
-			<a href="connexion.html">Connexion</a>
+			<a href="inscription.html">Inscription</a>
 		</div>
 	</nav>
 	<a class="title" href="index.html">La ferme de Didier</a>
-	<div id="content">
-		<img src="images/sheep.svg">
-		<div id="center">
-			<h1>Rejoins l'univers de Didier et sa ferme !</h1>
-			<form>
-				<p>Pseudo</p>
-				<input class="input-text" type="text" name="pseudo">
-				<p>Mot de passe</p>
-				<input class="input-text" type="password" name="password">
-				<p>Confirmation du mot de passe</p>
-				<input class="input-text" type="password" name="confirm-password">
-				<p>Mail</p>
-				<input class="input-text" type="text" name="mail">
-				<input class="valider" type="submit" value="Valider">
-			</form>
+	<div class="content">
+		<div class="title-column">
+			<h1>CLASSEMENT</h1>
+			<h1>PSEUDO</h1>
+			<h1>SCORE</h1>
 		</div>
-		<img src="images/pig.svg">
+		<div class="rank">
+			<h1>1</h1>
+			<h1>PSEUDO</h1>
+			<h1>100</h1>
+		</div>
+		<div class="rank">
+			<h1>2</h1>
+			<h1>PSEUDO</h1>
+			<h1>100</h1>
+		</div>
+		<div class="rank">
+			<h1>3</h1>
+			<h1>PSEUDO</h1>
+			<h1>100</h1>
+		</div>
+		<div class="rank">
+			<h1>4</h1>
+			<h1>PSEUDO</h1>
+			<h1>100</h1>
+		</div>
+		<div class="rank">
+			<h1>5</h1>
+			<h1>PSEUDO</h1>
+			<h1>100</h1>
+		</div>
 	</div>
 	<footer>
 		<a href="contact.html" >Contact</a>
@@ -62,93 +76,57 @@
 				});
 			});
 
-			$('.log').find('a').first().mouseover(function(){
-				$('.log').find('a').first().css('transform', 'scale(0.95)');
-			});
-			$('.log').find('a').first().mouseout(function(){
-				$('.log').find('a').first().css('transform', 'scale(1)');
-			});
-
-			$('.log').find('a').last().mouseover(function(){
-				$('.log').find('a').last().css('transform', 'scale(0.95)');
-			});
-			$('.log').find('a').last().mouseout(function(){
-				$('.log').find('a').last().css('transform', 'scale(1)');
-			});
-		});
 
 	</script>
 
 	<style type="text/css">
 		
-		#content{
-			position: relative;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin: 50px 0 100px 0;
-		}
-		#content img{
-			position: relative;
-			display: inline-block;
-			width: 200px;
-			margin: 50px;
-		}
-		#center{
+		.content{
 			position: relative;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			flex-direction: column;
-			width: 600px;
+			width: 70%;
+			margin: 50px auto 100px auto;
 		}
-		#center h1{
-			position: relative;
+		.title-column{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: rgba(0,0,0,0.1);
+			width: 100%;
+			border-radius: 5px;
+			padding: 20px 0;
+			margin: 5px 0;
+		}
+		.title-column h1{
 			display: inline-block;
 			font-family: 'Skater Girls Rock';
 			font-size: 30px;
-			color: #222222;
 			font-weight: 500;
-			background: rgba(0,0,0,0.1);
-			width: 100%;
-			padding: 25px 0 20px 0;
-			margin: 10px 0;
-			border-radius: 5px;
+			color: #222222;
+			width: 30%;
+			margin: 0;
 		}
-		form{
-			position: relative;
+		.rank{
 			display: flex;
-			align-items: center;
 			justify-content: center;
-			flex-wrap: wrap;
-			font-family: 'Skater Girls Rock';
-			color: #222222;
+			align-items: center;
 			background: rgba(0,0,0,0.1);
 			width: 100%;
 			border-radius: 5px;
+			padding: 20px 0;
+			margin: 5px 0;
 		}
-		form p{
-			position: relative;
-			display: inline-block;
-			font-size: 25px;
-			width: 40%;
-			margin: 20 0px;
-		}
-		.input-text{
-			position: relative;
+		.rank h1{
 			display: inline-block;
 			font-family: 'Skater Girls Rock';
-			font-size: 25px;
-			color: #222222;
-			border: none;
-			width: 50%;
-			height: 35px;
-			margin: 20px 0;
-			padding: 15px 10px 10px 10px;
-			border-radius: 5px;
-		}
-		.input-text:focus{
-			outline: none;
+			font-size: 30px;
+			font-weight: 500;
+			color: #33c054;
+			width: 30%;
+			margin: 0;
 		}
 
 		@media screen and (max-width: 1080px){
@@ -174,7 +152,6 @@
 				font-size: 60px;
 			}
 		}
-
 	</style>
 </body>
 </html>

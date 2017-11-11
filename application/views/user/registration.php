@@ -32,7 +32,7 @@
     <img src="<?=base_url();?>asset/images/pig.svg">
 </div>
 <footer>
-    <a href="contact.html" >Contact</a>
+    <a href="<?=base_url();?>Contact" >Contact</a>
     <a href="next.html">Nos jeux</a>
     <a class="infos-legales" href="next.html">Informations légales</a>
 </footer>

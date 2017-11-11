@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>La Ferme de Didier</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="jquery/animate.css">
+	<script type="text/javascript" src="jquery/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="jquery/jquery.textillate.js"></script>
+	<script type="text/javascript" src="jquery/jquery.fittext.js"></script>
+	<script type="text/javascript" src="jquery/jquery.lettering.js"></script>
+	<script type="text/javascript" src="jquery/jquery.nav-animations.js"></script>
+</head>
+<body>
+	<div class="page-bg"></div>
+	<nav>
+		<div class="dark-bg"></div>
+		<a class="account" href="account.html">
+			<img src="images/user.png"/>
+			<p>Pseudo</p>
+		</a>
+		<div class="log">
+			<a href="inscription.html">Inscription</a>
+			<div class="separation"></div>
+			<a href="connexion.html">Connexion</a>
+		</div>
+	</nav>
+	<div id="content">
+		<h1>404</h1>
+		<h2>Tu as l'air perdu !</h2>
+		<h3>CLIQUE SUR LA MAISON POUR RETROUVER TON CHEMIN</h3>
+		<a href="index.html"><img src="images/barn.svg"/></a>
+	</div>
+	<footer>
+		<a href="contact.html" >Contact</a>
+		<a href="next.html">Nos jeux</a>
+		<a class="infos-legales" href="next.html">Informations légales</a>
+	</footer>
+
+
+																						<!--	JAVASCRIPT 	-->	
+
+	<script type="text/javascript">
+		
+		$(document).ready(function(){
+
+			
+		});
+
+	</script>
+
+	<style type="text/css">
+		
+		#content{
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			margin: 50px 0 100px 0;
+		}
+		#content h1{
+			font-family: 'Alamain';
+			font-size: 150px;
+			color: #222222;
+			height: 300px;
+			margin: 0;
+		}
+		#content h2{
+			font-family: 'Skater Girls Rock';
+			font-size: 60px;
+			color: #222222;
+			margin: 0;
+		}
+		#content h3{
+			font-family: 'Skater Girls Rock';
+			font-size: 30px;
+			color: #222222;
+			margin: 0;
+		}
+		#content a{
+			width: 150px;
+			margin: 50px;
+		}
+
+		@media screen and (max-width: 1080px){
+			#content{
+				flex-direction: column;
+			}
+		}
+
+	</style>
+</body>
+</html>
