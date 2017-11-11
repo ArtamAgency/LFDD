@@ -48,11 +48,18 @@ class Enigme extends CI_Controller
 
     public function blockUser()
     {
-        $this->session->set_flashdata('change', 'Tu as raté trop de fois cette énigme, ton compte est bloqué 30 minutes :(');
-        $userId = $_SESSION['user_infos'][0]['user_id'];
-        $this->User_model->blockUserModel($userId);
-        $this->mailBlock($userId, '30 minutes');
-        redirect('/compte');
+        if($this->form_validation->run() === true)
+        {
+            $this->session->set_flashdata('change', 'Tu as raté trop de fois cette énigme, ton compte est bloqué 30 minutes :(');
+            $userId = $_SESSION['user_infos'][0]['user_id'];
+            $this->User_model->blockUserModel($userId);
+            $this->mailBlock($userId, '30 minutes');
+            redirect('/compte');
+        }
+        else
+        {
+            show_404();
+        }
     }
 
     public function blockUserDef($userId)

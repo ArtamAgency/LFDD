@@ -25,7 +25,7 @@
     <img src="<?=base_url();?>asset/images/pig.svg">
 </div>
 <footer>
-    <a href="<?=base_url();?>Contact" >Contact</a>
+    <a href="#" >Contact</a>
     <a href="#">Nos jeux</a>
     <a class="infos-legales" href="#">Informations légales</a>
 </footer>

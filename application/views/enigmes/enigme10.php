@@ -8,7 +8,7 @@
     <div class="content-2">
         <div class="content-2-left">
             <div class="alert">
-                <h1>Fécilitations ! Tu as retrouvé Célestin le poussin, Didier le fermier te remercie énormement pour ton aide !</h1>
+                <h1>Fécilitations ! Tu as retrouvé Célestin, Didier le fermier te remercie énormement pour ton aide !</h1>
                 <img src="<?=base_url();?>asset/images/chick.svg"/>
             </div>
             <div class="hitbox"></div>
@@ -16,22 +16,21 @@
         </div>
         <div class="content-2-right">
             <div class="description">
-                <h1>REFERENCE DE L'ENIGME</h1>
-                <h2>DESCRIPTION</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tristique viverra risus, in semper lacus. Aliquam in tincidunt eros, at pharetra odio. Proin id enim fermentum, rutrum ipsum a, porttitor dui.</p>
+                <h2>CONSIGNE</h2>
+                <p>Mission finale ! Si tu as trouvé Célestin le poussin, clique dessus.</p>
             </div>
             <form method="POST" action="<?=base_url();?>Enigme/enigmeHandler/10">
                 <input class="input-hidden" name="response" type="hidden" value="">
-                <input class="next" type="submit" value="VOIR CLASSEMENT">
+                <input class="next" type="submit" value="VOIR LE CLASSEMENT">
             </form>
-            <form method=POST" method=POST" class="ban-form" action="<?=base_url();?>Enigme/blockUser">
+            <form method=POST" class="ban-form" action="<?=base_url();?>Enigme/blockUser">
                 <input type="hidden" value="ban">
             </form>
         </div>
     </div>
 </div>
 <footer>
-    <a href="<?=base_url();?>Contact" >Contact</a>
+    <a href="#" >Contact</a>
     <a href="#">Nos jeux</a>
     <a class="infos-legales" href="#">Informations légales</a>
 </footer>

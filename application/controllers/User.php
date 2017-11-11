@@ -77,7 +77,7 @@ class User extends CI_Controller
         }
         else
         {
-            $this->session->set_flashdata('nochange', 'Tu n\'as pas rempli correctement les champs');
+            $this->session->set_flashdata('change', 'Tu n\'as pas rempli correctement les champs');
             redirect('/compte');
         }
     }

@@ -22,9 +22,8 @@
         </div>
         <div class="content-2-right">
             <div class="description">
-                <h1>REFERENCE DE L'ENIGME</h1>
-                <h2>DESCRIPTION</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tristique viverra risus, in semper lacus. Aliquam in tincidunt eros, at pharetra odio. Proin id enim fermentum, rutrum ipsum a, porttitor dui.</p>
+                <h2>CONSIGNE</h2>
+                <p>Il y a 7 différences entre cette image et celle sur le livre. Trouve-les et clique dessus !</p>
             </div>
             <form method="POST" action="<?=base_url();?>Enigme/enigmeHandler/2">
                 <input class="input-hidden" name="response" type="hidden" value="">
@@ -34,7 +33,7 @@
     </div>
 </div>
 <footer>
-    <a href="<?=base_url();?>Contact" >Contact</a>
+    <a href="#" >Contact</a>
     <a href="">Nos jeux</a>
     <a class="infos-legales" href="#">Informations légales</a>
 </footer>

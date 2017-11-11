@@ -9,31 +9,30 @@
     <div class="content-2">
         <div class="content-2-left">
             <p class="tryleft">Essais restants: 3 / 3</p>
-            <h1>CHIFFRE MYSTÈRE :</h1>
+            <h1>NOMBRE MYSTÈRE :</h1>
             <form>
                 <input class="input-text" type="text" onkeydown="this.value = this.value.toUpperCase()" onkeyup="this.value = this.value.toUpperCase()">
                 <a class="valider">Ok</a>
             </form>
-            <p class="tryagain">Ce n'est pas le bon chiffre, essaye encore !</p>
+            <p class="tryagain">Ce n'est pas le bon nombre, essaye encore !</p>
         </div>
         <div class="content-2-right">
             <div class="description">
-                <h1>REFERENCE DE L'ENIGME</h1>
-                <h2>DESCRIPTION</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tristique viverra risus, in semper lacus. Aliquam in tincidunt eros, at pharetra odio. Proin id enim fermentum, rutrum ipsum a, porttitor dui.</p>
+                <h2>CONSIGNE</h2>
+                <p>Une fois que tu as trouve le nombre mystère, entre-le dans la zone de texte.</p>
             </div>
             <form method="POST" action="<?=base_url();?>Enigme/enigmeHandler/9">
                 <input class="input-hidden" name="response" type="hidden" value="">
                 <input class="next" type="submit" value="ÉNIGME SUIVANTE">
             </form>
-            <form method=POST" class="ban-form" action="<?=base_url();?>Enigme/blockUser">
+            <form method="POST" class="ban-form" action="<?=base_url();?>Enigme/blockUser">
                 <input type="hidden" value="ban">
             </form>
         </div>
     </div>
 </div>
 <footer>
-    <a href="<?=base_url();?>" >Contact</a>
+    <a href="#" >Contact</a>
     <a href="#">Nos jeux</a>
     <a class="infos-legales" href="#">Informations légales</a>
 </footer>
@@ -49,7 +48,7 @@
         var essai = 0;
         $('.valider').click(function(){
             if($('.input-text').val() == '10'){
-                $('.tryagain').text('Bravo ! Tu as trouvé le chiffre mystère mais Célestin s\'est encore enfui, passe vite à l\'énigme suivante pour le rattraper !').css('color', '#33c054').css('opacity', '1');
+                $('.tryagain').text('Bravo ! Tu as trouvé le nombre mystère mais Célestin s\'est encore enfui, passe vite à l\'énigme suivante pour le rattraper !').css('color', '#33c054').css('opacity', '1');
                 $('.input-hidden').val('completed');
                 $('.input-text').prop('disabled', true);
             }

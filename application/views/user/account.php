@@ -12,6 +12,9 @@
             <?php if($enigme == 11): ?>
                 <a href="Enigme/resetGame/<?= $_SESSION['user_infos'][0]['user_id']; ?>">Recommencer</a>
             <?php endif ?>
+            <?php if($_SESSION['user_infos'][0]['user_admin'] >= 1): ?>
+                <a href="<?=base_url();?>admin">Espace admin</a>
+            <?php endif ?>
         </h1>
         
         <div id="center-bottom">
@@ -21,6 +24,12 @@
                 <?php $enigme -= 1; ?>
                 <p><b>Enigme(s) validée(s) : <?= $enigme; ?></b> / 10</p>
             </div>
+            <br/>
+            <?php if ($this->session->flashdata('change')) : ?>
+                <div class="alert alert-error">
+                    <strong style="color: #F00;"><?= $this->session->flashdata('change')?><strong>
+                </div>
+            <?php endif ?>
             <div class="change-form">
                 <form class="pswd-form" method="post" action="User/cgPassword">
                     <h1>Changer le mot de passe</h1>
@@ -45,18 +54,13 @@
                     <form>
             </div>
             <a class="logout" href="User/logout">Se déconnecter</a>
-            <?php if ($this->session->flashdata('change')) : ?>
-                <div class="alert alert-error">
-                    <strong><?= $this->session->flashdata('change')?><strong>
-                </div>
-            <?php endif ?>
 
         </div>
     </div>
     <img src="<?=base_url();?>asset/images/pig.svg">
     </div>
     <footer>
-        <a href="<?=base_url();?>Contact" >Contact</a>
+        <a href="#" >Contact</a>
         <a href="#">Nos jeux</a>
         <a class="infos-legales" href="#">Informations légales</a>
     </footer>

@@ -9,7 +9,7 @@
     <a href="index.html"><img src="<?=base_url();?>asset/images/barn.svg"/></a>
 </div>
 <footer>
-    <a href="<?=base_url();?>Contact.html" >Contact</a>
+    <a href="#" >Contact</a>
     <a href="#">Nos jeux</a>
     <a class="infos-legales" href="#">Informations légales</a>
 </footer>
