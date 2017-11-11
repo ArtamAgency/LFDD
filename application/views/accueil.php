@@ -14,7 +14,10 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tristique viverra risus, in semper lacus. Aliquam in tincidunt eros, at pharetra odio. Proin id enim fermentum, rutrum ipsum a, porttitor dui. Fusce sollicitudin magna urna. Curabitur at erat sit amet arcu aliquam vulputate. Proin in ipsum et dui elementum tempus ut sed purus. Suspendisse ut tincidunt urna, tempus egestas velit. Aliquam consequat gravida risus eget hendrerit. Etiam ut justo fermentum quam posuere laoreet ac id dolor. In fringilla ante ut est convallis elementum. Nam accumsan, nisl sed euismod aliquet, libero mi gravida quam, nec maximus mi ligula eleifend quam. Morbi molestie augue eget sem interdum egestas. Ut luctus arcu eros, id maximus leo blandit vitae. Sed interdum nec arcu non lobortis.</p>
     </div>
     <div id="desc3">
-        <p>Pour progresser dans l’aventure, suis les consignes des énigmes sur le site et sur le livre ! Télécharge le livre ici</p>
+        <p>
+            Pour progresser dans l’aventure, suis les consignes des énigmes sur le site et sur le livre !
+            <a target=_blank" href="<?=base_url();?>asset/print.pdf">Télécharge le livre ici</a>
+        </p>
         <img src="<?=base_url();?>asset/images/open_book.svg"/>
     </div>
 </div>

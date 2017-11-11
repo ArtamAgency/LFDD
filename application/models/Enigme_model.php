@@ -63,6 +63,17 @@ class Enigme_model extends CI_Model
         ;
     }
 
+    public function resetGameModel($userId)
+    {
+        $this->db
+            ->set('enigme_id', 1)
+            ->set('user_attempts', 0)
+            ->where('user_id', $userId)
+            ->update($this->tableResoudre)
+        ;
+
+    }
+
     public function getEnigmeById($enigmeId)
     {
         return $this->db

@@ -46,6 +46,15 @@ class Enigme extends CI_Controller
         }
     }
 
+    public function blockUser()
+    {
+        $this->session->set_flashdata('change', 'Tu as raté trop de fois cette énigme, ton compte est bloqué 30 minutes :(');
+        $userId = $_SESSION['user_infos'][0]['user_id'];
+        $this->User_model->blockUserModel($userId);
+        $this->mailBlock($userId, '30 minutes');
+        redirect('/compte');
+    }
+
     public function blockUserDef($userId)
     {
         if($_SESSION['user_infos'][0]['user_admin'] >= 1)
@@ -237,6 +246,7 @@ class Enigme extends CI_Controller
             }
             else
             {
+                $enigmeId += 1;
                 $this->Enigme_model->incrementEnigme($enigmeId, $userId);
                 $this->Enigme_model->resetAttempts($userId);
                 redirect('/classement');
@@ -257,6 +267,12 @@ class Enigme extends CI_Controller
                 redirect('/enigme/'.$enigmeId);
             }
         }
+    }
+
+    public function resetGame($userId)
+    {
+        $this->Enigme_model->resetGameModel($userId);
+        redirect('/jouer');
     }
 
 }

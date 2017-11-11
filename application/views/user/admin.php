@@ -14,31 +14,15 @@
     <script type="text/javascript" src="<?=base_url();?>asset/jquery/jquery.lettering.js"></script>
 </head>
 <body>
-<?php $this->load->view('nav.php'); ?>
-    <h3>Enigmes</h3>
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <table class="table table-bordered">
-                <thead>
-                    <th>#</th>
-                    <th>Nom</th>
-                    <th>Description</th>
-                    <th>Réponse</th>
-                </thead>
-                <tbody>
-                    <?php foreach($enigmes as $enigme): ?>
-                        <tr>
-                            <td><?= $enigme['enigme_id'] ?></td>
-                            <td><?= $enigme['enigme_nom'] ?></td>
-                            <td><?= $enigme['enigme_description'] ?></td>
-                            <td><?= $enigme['enigme_response'] ?></td>
-                        </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
-        </div>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li><a href="<?=base_url();?>">Accueil</a></li>
+            <li><a href="<?=base_url();?>compte">Compte</a></li>
+            <li><a href="<?=base_url();?>classement">Classement</a></li>
+        </ul>
     </div>
-<hr>
+</nav>
     <h3>Joueurs</h3>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -50,7 +34,6 @@
                     <th>Bloqué jusqu'à</th>
                     <th>Enigme en cours</th>
                     <th>Éssais</th>
-                    <th>Temps passé</th>
                     <th>Admin</th>
                     <th>Bloquage</th>
                 </thead>
@@ -75,7 +58,6 @@
                             <?php } ?>
                             <td><?= $user['enigme_id'] ?></td>
                             <td><?= $user['user_attempts'] ?></td>
-                            <td><?= $user['user_spentime'] ?></td>
                             <td>
                                 <?php if($user['user_admin'] == 1): ?>
                                 <a href="<?=base_url();?>User/setAdmin/<?=$user['user_id'];?>/0">Supprimer les droit</a>

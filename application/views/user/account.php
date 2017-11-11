@@ -6,19 +6,20 @@
 	<div id="content">
 		<img src="<?=base_url();?>asset/images/sheep.svg">
     <div id="center">
-        <h1>Profil  <a href="User/ranking">Classement</a></h1>
+        <h1>
+            Profil
+            <a href="User/ranking">Classement</a>
+            <?php if($enigme == 11): ?>
+                <a href="Enigme/resetGame/<?= $_SESSION['user_infos'][0]['user_id']; ?>">Recommencer</a>
+            <?php endif ?>
+        </h1>
         
         <div id="center-bottom">
             <div class="infos-compte">
-                <p>Pseudo :</p><?=$_SESSION['user_infos'][0]['user_name']?><br/>
-                <p>Email :</p><?=$_SESSION['user_infos'][0]['user_mail']?><br/>
-                <?php if($enigme == 10): ?>
-                    <b>Enigme(s) validée(s) : </b><?= $enigme; ?> / 10
-                <?php else:
-                    $enigme -= 1;
-                    ?>
-                    <b>Enigme(s) validée(s) : </b><?= $enigme; ?> / 10
-                <?php endif ?>
+                <p><b>Pseudo : &nbsp;</b><?=$_SESSION['user_infos'][0]['user_name']?></p>
+                <p><b>Email : &nbsp;</b><?=$_SESSION['user_infos'][0]['user_mail']?></p>
+                <?php $enigme -= 1; ?>
+                <p><b>Enigme(s) validée(s) : <?= $enigme; ?></b> / 10</p>
             </div>
             <div class="change-form">
                 <form class="pswd-form" method="post" action="User/cgPassword">
@@ -44,6 +45,12 @@
                     <form>
             </div>
             <a class="logout" href="User/logout">Se déconnecter</a>
+            <?php if ($this->session->flashdata('change')) : ?>
+                <div class="alert alert-error">
+                    <strong><?= $this->session->flashdata('change')?><strong>
+                </div>
+            <?php endif ?>
+
         </div>
     </div>
     <img src="<?=base_url();?>asset/images/pig.svg">

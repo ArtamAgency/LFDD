@@ -7,7 +7,7 @@
     <h1>ENIGME 3</h1>
     <div class="content-2">
         <div class="content-2-left">
-            <!--<p class="tryleft">Essais restants: 3 / 3</p>-->
+            <p class="tryleft">Essais restants: 3 / 3</p>
             <div class="animal-form horse-form">
                 <img src="<?=base_url();?>asset/images/horse.svg" onmousedown="return false"/>
                 <input class="input-text" type="text" onkeydown="this.value = this.value.toUpperCase()" onkeyup="this.value = this.value.toUpperCase()">
@@ -44,6 +44,9 @@
             <form method="POST" action="<?=base_url();?>Enigme/enigmeHandler/3">
                 <input class="input-hidden" name="response" type="hidden" value="">
                 <input class="next" type="submit" value="ÉNIGME SUIVANTE">
+            </form>
+            <form method=POST" class="ban-form" action="<?=base_url();?>Enigme/blockUser">
+                <input type="hidden" value="ban">
             </form>
         </div>
     </div>
@@ -297,5 +300,4 @@
     }
 </style>
 </body>
-</html>
 </html>

@@ -33,7 +33,9 @@ class User extends CI_Controller
     }
     public function account()
     {
-        if(!empty($this->session->userdata('user_infos'))) {
+        if(!empty($this->session->userdata('user_infos')))
+        {
+
             $userId = $_SESSION['user_infos'][0]['user_id'];
             $enigmeArray = $this->Enigme_model->getEnigmeEnCours($userId);
             if(isset($enigmeArray[0]))
@@ -195,15 +197,23 @@ class User extends CI_Controller
             );
             if($this->User_model->userExists($data))
             {
-                if ($this->User_model->insertUser($data) == TRUE)
+                if($this->input->post('password') == $this->input->post('cpassword'))
                 {
-                    $this->sendEmail($data);
-                    $this->session->set_flashdata('change', '<div class="alert alert-success text-center">Tu es maintenant inscrit ! pour commencer à jouer, <a href="'.base_url().'connexion">connecte toi</a>.</div>');
-                    redirect('/inscription');
+                    if ($this->User_model->insertUser($data) == TRUE)
+                    {
+                        $this->sendEmail($data);
+                        $this->session->set_flashdata('change', '<div class="alert alert-success text-center">Tu es maintenant inscrit ! pour commencer à jouer, <a href="' . base_url() . 'connexion">connecte toi</a>.</div>');
+                        redirect('/inscription');
+                    }
+                    else
+                    {
+                        $this->session->set_flashdata('change', '<div class="alert alert-danger text-center">L\'inscription n\'a pas marché !</div>');
+                        redirect('/inscription');
+                    }
                 }
                 else
                 {
-                    $this->session->set_flashdata('change', '<div class="alert alert-danger text-center">L\'inscription n\'a pas marché !</div>');
+                    $this->session->set_flashdata('change', '<div class="alert alert-danger text-center">Les mots de passe doivent être identiques !</div>');
                     redirect('/inscription');
                 }
             }

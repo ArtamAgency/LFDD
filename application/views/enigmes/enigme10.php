@@ -24,7 +24,7 @@
                 <input class="input-hidden" name="response" type="hidden" value="">
                 <input class="next" type="submit" value="VOIR CLASSEMENT">
             </form>
-            <form class="ban-form" action="ban.html">
+            <form method=POST" method=POST" class="ban-form" action="<?=base_url();?>Enigme/blockUser">
                 <input type="hidden" value="ban">
             </form>
         </div>

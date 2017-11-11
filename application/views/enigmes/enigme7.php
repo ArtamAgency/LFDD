@@ -32,7 +32,7 @@
                 <input class="input-hidden" name="response" type="hidden" value="">
                 <input class="next" type="submit" value="ÉNIGME SUIVANTE">
             </form>
-            <form class="ban-form" action="ban.html">
+            <form method=POST" class="ban-form" action="<?=base_url();?>Enigme/blockUser">
                 <input type="hidden" value="ban">
             </form>
         </div>
