@@ -165,18 +165,22 @@ class Enigme extends CI_Controller
         {
             if ($this->isNotBanned())
             {
-                $userId = $_SESSION['user_infos'][0]['user_id'];
-                $enigmeEnCoursArray = $this->Enigme_model->getEnigmeEnCours($userId);
-                $enigmeEnCours = $enigmeEnCoursArray[0]['enigme_id'];
-
-                if ($enigmeEnCours == $enigmeId)
+                if($enigmeId != 11)
                 {
-                    $data['enigme'] = $this->Enigme_model->getEnigmeById($enigmeId);
-                    $this->load->view('enigmes/enigme'.$enigmeId, $data);
+                    $userId = $_SESSION['user_infos'][0]['user_id'];
+                    $enigmeEnCoursArray = $this->Enigme_model->getEnigmeEnCours($userId);
+                    $enigmeEnCours = $enigmeEnCoursArray[0]['enigme_id'];
+
+                    if ($enigmeEnCours == $enigmeId) {
+                        $data['enigme'] = $this->Enigme_model->getEnigmeById($enigmeId);
+                        $this->load->view('enigmes/enigme' . $enigmeId, $data);
+                    } else {
+                        redirect('/enigme/' . $enigmeEnCours);
+                    }
                 }
                 else
                 {
-                    redirect('/enigme/' . $enigmeEnCours);
+                    $this->load->view('enigmes/enigme10');
                 }
             }
             else
@@ -224,10 +228,19 @@ class Enigme extends CI_Controller
 
         if($reponseUser == $reponseDB)
         {
-            $enigmeId += 1;
-            $this->Enigme_model->incrementEnigme($enigmeId, $userId);
-            $this->Enigme_model->resetAttempts($userId);
-            redirect('/enigme/'.$enigmeId);
+            if($enigmeId != 10)
+            {
+                $enigmeId += 1;
+                $this->Enigme_model->incrementEnigme($enigmeId, $userId);
+                $this->Enigme_model->resetAttempts($userId);
+                redirect('/enigme/' . $enigmeId);
+            }
+            else
+            {
+                $this->Enigme_model->incrementEnigme($enigmeId, $userId);
+                $this->Enigme_model->resetAttempts($userId);
+                redirect('/classement');
+            }
         }
         else
         {

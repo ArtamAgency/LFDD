@@ -1,23 +1,13 @@
 <?php $this->load->view('header') ?>
 <body>
 <div class="page-bg"></div>
-<nav>
-    <div class="dark-bg"></div>
-    <a class="account" href="<?=base_url();?>compte">
-        <img src="<?=base_url();?>asset/images/user.png"/>
-        <p>Pseudo</p>
-    </a>
-    <div class="log">
-        <a href="<?=base_url();?>inscription">Inscription</a>
-        <div class="separation"></div>
-        <a href="<?=base_url();?>connexion">Connexion</a>
-    </div>
-</nav>
+<?php $this->load->view('nav'); ?>
 <a class="tlt title" href="<?=base_url();?>">La ferme de Didier</a>
 <div class="content">
     <h1>ENIGME 3</h1>
     <div class="content-2">
         <div class="content-2-left">
+            <!--<p class="tryleft">Essais restants: 3 / 3</p>-->
             <div class="animal-form horse-form">
                 <img src="<?=base_url();?>asset/images/horse.svg" onmousedown="return false"/>
                 <input class="input-text" type="text" onkeydown="this.value = this.value.toUpperCase()" onkeyup="this.value = this.value.toUpperCase()">
@@ -59,9 +49,9 @@
     </div>
 </div>
 <footer>
-    <a href="contact.html" >Contact</a>
-    <a href="next.html">Nos jeux</a>
-    <a class="infos-legales" href="next.html">Informations légales</a>
+    <a href="<?=base_url();?>Contact" >Contact</a>
+    <a href="#">Nos jeux</a>
+    <a class="infos-legales" href="#">Informations légales</a>
 </footer>
 
 
@@ -71,47 +61,11 @@
 
     $(document).ready(function(){
 
-        $('.tlt').textillate({
-            in: {
-                effect: 'bounceInDown',
-                callback: function(){
-                    $('nav').find('a').removeClass('tlt');
-                }
-            }
-        });
-
-        $('#description').find('img').click(function(){
-            $(this).addClass('animated rubberBand').one('animationend', function(){
-                $(this).removeClass('animated rubberBand');
-            });
-        });
-        $('.play').find('img').click(function(){
-            $(this).addClass('animated rubberBand').one('animationend', function(){
-                $(this).removeClass('animated rubberBand');
-            });
-        });
-
-        $('.log').find('a').first().mouseover(function(){
-            $('.log').find('a').first().css('transform', 'scale(0.95)');
-        });
-        $('.log').find('a').first().mouseout(function(){
-            $('.log').find('a').first().css('transform', 'scale(1)');
-        });
-
-        $('.log').find('a').last().mouseover(function(){
-            $('.log').find('a').last().css('transform', 'scale(0.95)');
-        });
-        $('.log').find('a').last().mouseout(function(){
-            $('.log').find('a').last().css('transform', 'scale(1)');
-        });
-
-
         var essai = 0;
-        completion = 0;
+        completed = false;
         $('.valider').click(function(){
 
             if($('.horse-form').find('input').val() == 'CHEVAL'){
-                completion++;
                 $('.horse-form').find('input').css('background', '#33c054').prop('disabled', true);
             }
             else{
@@ -121,7 +75,6 @@
 
 
             if($('.cow-form').find('input').val() == 'VACHE'){
-                completion++;
                 $('.cow-form').find('input').css('background', '#33c054').prop('disabled', true);
             }
             else{
@@ -131,7 +84,6 @@
 
 
             if($('.sheep-form').find('input').val() == 'MOUTON'){
-                completion++;
                 $('.sheep-form').find('input').css('background', '#33c054').prop('disabled', true);
             }
             else{
@@ -141,7 +93,6 @@
 
 
             if($('.pig-form').find('input').val() == 'COCHON'){
-                completion++;
                 $('.pig-form').find('input').css('background', '#33c054').prop('disabled', true);
             }
             else{
@@ -151,7 +102,6 @@
 
 
             if($('.chicken-form').find('input').val() == 'POULE'){
-                completion++;
                 $('.chicken-form').find('input').css('background', '#33c054').prop('disabled', true);
             }
             else{
@@ -161,18 +111,29 @@
 
 
             if($('.cat-form').find('input').val() == 'CHAT'){
-                completion++;
                 $('.cat-form').find('input').css('background', '#33c054').prop('disabled', true);
             }
             else{
                 $('.tryagain').css('opacity', '1');
                 $('.cat-form').find('input').css('background', '#ee3333');
             }
-
-
-            if(completion == 6){
-                $('.tryagain').text('Bravo, tu as trouvé tous les noms des animaux, mais Célestin s\'est encore enfuit, passe vite à l\'énigme suivante pour le rattraper !').css('color', '#33c054').css('opacity', '1');
+            if($('.horse-form').find('input').val() == 'CHEVAL' && $('.cow-form').find('input').val() == 'VACHE' && $('.sheep-form').find('input').val() == 'MOUTON' && $('.pig-form').find('input').val() == 'COCHON' && $('.chicken-form').find('input').val() == 'POULE'&& $('.cat-form').find('input').val() == 'CHAT'){
+                $('.tryagain').text('Bravo, tu as trouvé tous les noms des animaux, mais Célestin s\'est encore enfui, passe vite à l\'énigme suivante pour le rattraper !').css('color', '#33c054').css('opacity', '1');
                 $('.input-hidden').val('completed');
+            }
+            else{
+                essai++;
+            }
+            $('.tryleft').text('Essais restants: '+(3 - essai)+' / 3');
+            if(essai == 1){
+                $('.tryleft').css('color', '#ee9c33');
+            }
+            if(essai == 2){
+                $('.tryleft').css('color', '#ee3333');
+            }
+            if(essai == 3){
+                //$('.ban-form').submit();
+                alert('pd');
             }
         });
         $('.input-text').click(function(){
@@ -208,6 +169,13 @@
         width: 780px;
         margin: 0 40px 0 0;
     }
+    .tryleft{
+        text-align: right;
+        font-family: 'Skater Girls Rock';
+        font-size: 30px;
+        color: #33c054;
+        margin: 10px;
+    }
     .animal-form{
         display: inline-block;
         width: 25%;
@@ -224,6 +192,8 @@
         width: 100%;
         opacity: 0;
         margin: 0 0 20px 0;
+        user-select: none;
+        cursor: default;
     }
     .input-text{
         text-align: center;
@@ -238,20 +208,6 @@
     }
     .input-text:focus{
         outline: none;
-    }
-    .valider{
-        display: block;
-        width: 65px;
-        height: 35px;
-        font-family: 'Skater Girls Rock';
-        font-size: 35px;
-        color: #ffffff;
-        background: #33c054;
-        border: none;
-        border-radius: 5px;
-        padding: 15px 0 5px 0;
-        margin: 0 auto 30px auto;
-        cursor: pointer;
     }
     .content-2-right{
         display: flex;
@@ -341,4 +297,5 @@
     }
 </style>
 </body>
+</html>
 </html>

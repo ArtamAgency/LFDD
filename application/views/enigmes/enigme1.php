@@ -2,20 +2,15 @@
 <body>
 <div class="page-bg"></div>
 <?php $this->load->view('nav'); ?>
-<a class="tlt title" href="<?=base_url();?>">La ferme de Didier</a>
+<a class="tlt title" href="<?=base_url()?>">La ferme de Didier</a>
 <div class="content">
-    <audio id="sound-chicken" src="<?= base_url();?>asset/sounds/chicken.mp3"></audio>
     <h1>ENIGME 1</h1>
     <div class="content-2">
         <div class="content-2-left">
-            <h1>MOT&nbsp;&nbsp;MYSTÈRE :</h1>
-            <form>
-                <input class="input-text" type="text" onkeydown="this.value = this.value.toUpperCase()" onkeyup="this.value = this.value.toUpperCase()">
-                <a class="valider">Ok</a>
-            </form>
-            <p class="tryagain">Ce n'est pas le bon mot, essaye encore !</p>
-            <p class="indice-text">Tu peux cliquer sur l'image en dessous pour écouter l'indice...</p>
-            <img src="<?= base_url();?>asset/images/headset.svg" onmousedown="return false"/>
+            <img class="puzzle" src="<?=base_url();?>asset/images/puzzle.png"/>
+            <div class="puzzle-pieces">
+                <h1>Bravo ! Tu as reconstitué le puzzle correctement mais Célestin s'est enfui, passe vite à l'énigme suivante pour le rattraper !</h1>
+            </div>
         </div>
         <div class="content-2-right">
             <div class="description">
@@ -31,9 +26,9 @@
     </div>
 </div>
 <footer>
-    <a href="contact.html" >Contact</a>
-    <a href="next.html">Nos jeux</a>
-    <a class="infos-legales" href="next.html">Informations légales</a>
+    <a href="<?=base_url();?>Contact" >Contact</a>
+    <a href="#">Nos jeux</a>
+    <a class="infos-legales" href="#">Informations légales</a>
 </footer>
 
 
@@ -43,94 +38,14 @@
 
     $(document).ready(function(){
 
-        $('.tlt').textillate({
-            in: {
-                effect: 'bounceInDown',
-                callback: function(){
-                    $('nav').find('a').removeClass('tlt');
-                }
-            }
-        });
-
-        $('#description').find('img').click(function(){
-            $(this).addClass('animated rubberBand').one('animationend', function(){
-                $(this).removeClass('animated rubberBand');
-            });
-        });
-        $('.play').find('img').click(function(){
-            $(this).addClass('animated rubberBand').one('animationend', function(){
-                $(this).removeClass('animated rubberBand');
-            });
-        });
-
-        $('.log').find('a').first().mouseover(function(){
-            $('.log').find('a').first().css('transform', 'scale(0.95)');
-        });
-        $('.log').find('a').first().mouseout(function(){
-            $('.log').find('a').first().css('transform', 'scale(1)');
-        });
-
-        $('.log').find('a').last().mouseover(function(){
-            $('.log').find('a').last().css('transform', 'scale(0.95)');
-        });
-        $('.log').find('a').last().mouseout(function(){
-            $('.log').find('a').last().css('transform', 'scale(1)');
-        });
-
-
-        var completed = false;
-        var essai = 0;
-        var soundChicken = document.getElementById("sound-chicken");
-
-        $('.animal-form').find('img').mouseover(function(){
-            if(completed == false){
-                $(this).css('transform', 'scale(0.98)');
-            }
-        });
-        $('.animal-form').find('img').mouseout(function(){
-            if(completed == false){
-                $(this).css('transform', 'scale(1)');
-            }
-        });
-        $('.animal-form').find('img').click(function(){
-            if(completed == false){
-                $(this).css('transform', 'scale(0.95)').one('transitionend', function(){
-                    $(this).css('transform', 'scale(1)');
-                });
-            }
-        });
-
-        $('.valider').click(function(){
-            if(completed == false){
-
-                if($('.input-text').val() == 'POULE'){
-                    $('.tryagain').text('Bravo ! Tu as trouvé le mot mystère !').css('color', '#33c054').css('opacity', '1');
-                    $('.input-hidden').val('completed');
-                    $('.input-text').prop('disabled', true);
-                    $('.indice-text').text('Tu as réussi cette énigme mais Célestin s\'est enfuit, passe vite à l\'énigme suivante pour le rattraper !').css('opacity', '1');
-                    $('.content-2-left').find('img').attr('src', 'images/chicken.svg').css('opacity', '1').css('cursor', 'default');
-                    completed = true;
-                }
-                else{
-                    if(essai >= 2){
-                        $('.content-2-left').find('img').css('opacity', '1');
-                        $('.tryagain').css('opacity', '1');
-                        $('.indice-text').css('opacity', '1');
-                    }
-                    else{
-                        $('.tryagain').css('opacity', '1');
-                    }
-                    essai++;
-                }
-            }
-        });
-        $('.input-text').click(function(){
-            $('.tryagain').css('opacity', '0');
-        });
-
-        $('.content-2-left').find('img').click(function(){
-            if(essai >= 2 && completed == false){
-                soundChicken.play();
+        $('.puzzle').snapPuzzle({
+            rows:3,
+            columns:3,
+            pile: ".puzzle-pieces",
+            containment: ".content-2-left",
+            onComplete: function(){
+                $('.puzzle-pieces').find('h1').show();
+                $('.input-hidden').val('completed');
             }
         });
 
@@ -139,6 +54,33 @@
 </script>
 
 <style type="text/css">
+
+
+
+
+    .snappuzzle-wrap{
+        position: relative;
+        display: block;
+        width: 60%;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    .snappuzzle-pile{
+        position: relative;
+    }
+    .snappuzzle-piece{
+        cursor: move;
+    }
+    .snappuzzle-slot{
+        position: absolute;
+        background: #fff;
+        opacity: .98;
+    }
+    .snappuzzle-slot-hover{
+        background: #eee;
+    }
+
+
 
     .content{
         display: inline-block;
@@ -159,77 +101,34 @@
         width: 100%;
     }
     .content-2-left{
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
         background: rgba(0,0,0,0.1);
+        padding: 20px;
         border-radius: 5px;
         width: 780px;
-        padding: 40px 0;
         margin: 0 40px 0 0;
     }
-    .content-2-left h1{
-        font-size: 50px;
-    }
     .content-2-left img{
-        width: 100px;
-        margin: 40px 0 0 0;
-        opacity: 0;
-        cursor: pointer;
-        transition: 0.2s ease;
+        width: 100%;
+        border-radius: 5px;
     }
-    .content-2-left form{
+    .puzzle-pieces{
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 35px;
-        margin: 40px 0 40px 0;
-    }
-    .tryagain{
-        font-family: 'Skater Girls Rock';
-        font-size: 30px;
-        color: #ee3333;
         width: 100%;
-        opacity: 0;
-        margin: 0;
+        height: 200px;
     }
-    .indice-text{
-        font-family: 'Skater Girls Rock';
-        font-size: 25px;
-        color: #222222;
-        width: 100%;
-        opacity: 0;
-        margin: 60px 0 0 0;
-    }
-    .input-text{
+    .puzzle-pieces h1{
+        display: none;
         text-align: center;
-        font-family: 'Skater Girls Rock';
-        font-size: 25px;
-        color: #222222;
-        border: none;
-        width: 350px;
-        height: 100%;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    .input-text:focus{
-        outline: none;
-    }
-    .valider{
-        position: relative;
-        display: inline-block;
-        width: 65px;
-        height: 100%;
-        font-family: 'Skater Girls Rock';
-        font-size: 35px;
-        color: #ffffff;
-        background: #33c054;
-        border: none;
-        border-radius: 5px;
-        padding: 15px 0 5px 0;
-        margin: 0 0 0 20px;
-        cursor: pointer;
+        font-size: 30px;
+        width: 80%;
+        color: #33c054;
     }
     .content-2-right{
         display: flex;
@@ -275,6 +174,7 @@
         color: #222222;
         text-align: justify;
     }
+
     @media screen and (max-device-width: 1080px){
         .content h1{
             text-align: center;
@@ -297,20 +197,6 @@
         }
         .description h1{
             text-align: left;
-        }
-        .tryagain{
-            font-size: 50px;
-        }
-        .input-text{
-            font-size: 40px;
-        }
-        .indice-text{
-            font-size: 40px;
-        }
-        .valider{
-            width: 100px;
-            font-size: 50px;
-            padding: 15px 0 15px 0;
         }
     }
 </style>

@@ -6,17 +6,12 @@
 	font-family: "Skater Girls Rock";
 	src: url('fonts/SkaterGirlsRock.ttf');
 }
-@font-face {
-	font-family: "Lato";
-	src: url('fonts/Lato-Regular.ttf');
-}
 body{
 	position: relative;
 	margin: 0;
-	width: 100vw;
-	height: 100%;
 	text-align: center;
 	overflow-x: hidden;
+	height: 100%;
 }
 .page-bg{
 	position: absolute;
@@ -59,6 +54,14 @@ nav{
 .tlt{
 	transition: 0.2s ease;
 }
+.home{
+	margin-left: 20px;
+	transition: 0.2s ease;
+}
+.home img{
+	width: 40px;
+	opacity: 0.9;
+}
 .account{
 	position: relative;
 	display: flex;
@@ -68,7 +71,7 @@ nav{
 	padding: 0;
 	margin-left: 20px;
 	text-decoration: none;
-	transition: 0.5s ease;
+	transition: 0.2s ease;
 }
 .account img{
 	position: relative;
@@ -85,7 +88,7 @@ nav{
 	font-size: 18px;
 	text-decoration: none;
 	vertical-align: middle;
-	padding: 10px 0 0 0;
+	padding: 0;
 	margin: 0;
 	text-decoration: none;
 }
@@ -94,11 +97,10 @@ nav{
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	height: 100%;
 	margin-right: 30px;
 }
 .log a{
-	position: relative;
-	display: inline-block;
 	font-family: 'Skater Girls Rock';
 	font-weight: 500;
 	font-size: 22px;
@@ -106,21 +108,37 @@ nav{
 	padding: 0;
 	color: #222222;
 	filter: unset;
-	transition: 0.5s ease;
+	padding: 5px 0 0 0;
+	transition: 0.2s ease;
 }
 .separation{
 	position: relative;
 	display: inline-block;
 	width: 2px;
-	height: 30px;
+	height: 70%;
 	margin: 0 15px 0 15px;
 	background: #222222;
 }
+.valider{
+	display: inline-block;
+	font-family: 'Skater Girls Rock';
+	font-size: 35px;
+	color: #ffffff;
+	background: #33c054;
+	border: none;
+	border-radius: 5px;
+	padding: 10px 15px 0 15px;
+	margin: 20px;
+	cursor: pointer;
+	user-select: none;
+	transition: 0.2s ease;
+}
 footer{
-	position: relative;
+	position: absolute;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	bottom: 0;
 	width: 100%;
 	background: #ee3333;
 	text-align: center;
@@ -178,5 +196,8 @@ footer a{
 	}
 	.title{
 		font-size: 80px;
+	}
+	.valider{
+		padding: 15px 25px 0 25px;
 	}
 }

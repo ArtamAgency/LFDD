@@ -8,7 +8,7 @@
     <div class="content-2">
         <div class="content-2-left">
             <div class="alert">
-                <h1>Bravo !</h1>
+                <h1>Bravo ! Tu as trouvé une différence, il n'en reste plus que 6.</h1>
                 <a>Ok</a>
             </div>
             <div class="hitbox" id="arbre"></div>
@@ -34,9 +34,9 @@
     </div>
 </div>
 <footer>
-    <a href="<?=base_url();?>contact" >Contact</a>
+    <a href="<?=base_url();?>Contact" >Contact</a>
     <a href="">Nos jeux</a>
-    <a class="infos-legales" href="">Informations légales</a>
+    <a class="infos-legales" href="#">Informations légales</a>
 </footer>
 
 
@@ -45,43 +45,6 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-
-        $('.tlt').textillate({
-            in: {
-                effect: 'bounceInDown',
-                callback: function(){
-                    $('nav').find('a').removeClass('tlt');
-                }
-            }
-        });
-
-        $('#description').find('img').click(function(){
-            $(this).addClass('animated rubberBand').one('animationend', function(){
-                $(this).removeClass('animated rubberBand');
-            });
-        });
-        $('.play').find('img').click(function(){
-            $(this).addClass('animated rubberBand').one('animationend', function(){
-                $(this).removeClass('animated rubberBand');
-            });
-        });
-
-
-        $('.log').find('a').first().mouseover(function(){
-            $('.log').find('a').first().css('transform', 'scale(0.95)');
-        });
-        $('.log').find('a').first().mouseout(function(){
-            $('.log').find('a').first().css('transform', 'scale(1)');
-        });
-
-        $('.log').find('a').last().mouseover(function(){
-            $('.log').find('a').last().css('transform', 'scale(0.95)');
-        });
-        $('.log').find('a').last().mouseout(function(){
-            $('.log').find('a').last().css('transform', 'scale(1)');
-        });
-
-
 
         var completion = 0;
         $('#mouton').click(function(){
@@ -120,16 +83,16 @@
             completion++;
         });
         $('.alert').find('a').click(function(){
+            $('.alert').hide();
+        });
+        $('.hitbox').click(function(){
+            $('.alert').find('h1').text('Bravo ! Tu as trouvé une différence, il n\'en reste plus que '+(7 - completion)+'.');
             if(completion == 7){
                 $('.alert').find('a').hide();
-                $('.alert').find('h1').css('font-size', '40px').text('Tu as réussi cette énigme mais Célestin s\'est enfuit, passe vite à l\'énigme suivante pour le rattraper !');
+                $('.alert').find('h1').css('font-size', '40px').text('Tu as réussi cette énigme mais Célestin s\'est encore enfui, passe vite à l\'énigme suivante pour le rattraper !');
                 $('.input-hidden').val('completed');
             }
-            else{
-                $('.alert').hide();
-            }
         });
-
 
 
     });
@@ -167,6 +130,7 @@
     .content-2-left img{
         width: 100%;
         border-radius: 5px;
+        user-select: none;
     }
     .hitbox{
         position: absolute;
@@ -273,7 +237,7 @@
     }
     .alert h1{
         font-family: 'Skater Girls Rock';
-        font-size: 70px;
+        font-size: 40px;
         color: #ffffff;
         width: 80%;
         text-align: center;
@@ -286,6 +250,7 @@
         height: 70px;
         background: #33c054;
         padding: 25px 0 0 0;
+        margin: 20px;
         border-radius: 5px;
         cursor: pointer;
     }

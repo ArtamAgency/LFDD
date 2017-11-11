@@ -10,7 +10,7 @@ class User_model extends CI_Model
             ->order_by('user_name DESC')
             ->get($this->tableUser)
             ->result_array()
-            ;
+        ;
     }
     public function getAllEnigmes()
     {
@@ -24,7 +24,7 @@ class User_model extends CI_Model
             ->where('user_password', $password)
             ->get()
             ->result_array()
-            ;
+        ;
     }
     public function updatePassword($password)
     {

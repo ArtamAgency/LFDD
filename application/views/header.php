@@ -10,4 +10,6 @@
     <script type="text/javascript" src="<?=base_url();?>asset/jquery/jquery.textillate.js"></script>
     <script type="text/javascript" src="<?=base_url();?>asset/jquery/jquery.fittext.js"></script>
     <script type="text/javascript" src="<?=base_url();?>asset/jquery/jquery.lettering.js"></script>
+    <script type="text/javascript" src="<?=base_url();?>asset/jquery/jquery.snap-puzzle.js"></script>
+    <script type="text/javascript" src="<?=base_url();?>asset/jquery/jquery.nav-animations.js"></script>
 </head>

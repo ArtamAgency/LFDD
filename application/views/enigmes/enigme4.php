@@ -7,6 +7,7 @@
     <h1>ENIGME 4</h1>
     <div class="content-2">
         <div class="content-2-left">
+            <p class="tryleft">Essais restants: 3 / 3</p>
             <div class="animal-form pig-form">
                 <img src="<?=base_url();?>asset/images/headset.svg" onmousedown="return false"/>
                 <audio src="<?=base_url();?>asset/sounds/pig.wav"></audio>
@@ -46,9 +47,12 @@
                 <h2>DESCRIPTION</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tristique viverra risus, in semper lacus. Aliquam in tincidunt eros, at pharetra odio. Proin id enim fermentum, rutrum ipsum a, porttitor dui.</p>
             </div>
-            <form method="POST" action="Enigme/enigmeHandler/4">
+            <form method="POST" action="<?=base_url();?>Enigme/enigmeHandler/4">
                 <input class="input-hidden" name="response" type="hidden" value="">
                 <input class="next" type="submit" value="ÉNIGME SUIVANTE">
+            </form>
+            <form class="ban-form" action="ban.html">
+                <input type="hidden" value="ban">
             </form>
         </div>
     </div>
@@ -66,57 +70,21 @@
 
     $(document).ready(function(){
 
-        $('.tlt').textillate({
-            in: {
-                effect: 'bounceInDown',
-                callback: function(){
-                    $('nav').find('a').removeClass('tlt');
-                }
-            }
-        });
-
-        $('#description').find('img').click(function(){
-            $(this).addClass('animated rubberBand').one('animationend', function(){
-                $(this).removeClass('animated rubberBand');
-            });
-        });
-        $('.play').find('img').click(function(){
-            $(this).addClass('animated rubberBand').one('animationend', function(){
-                $(this).removeClass('animated rubberBand');
-            });
-        });
-
-        $('.log').find('a').first().mouseover(function(){
-            $('.log').find('a').first().css('transform', 'scale(0.95)');
-        });
-        $('.log').find('a').first().mouseout(function(){
-            $('.log').find('a').first().css('transform', 'scale(1)');
-        });
-
-        $('.log').find('a').last().mouseover(function(){
-            $('.log').find('a').last().css('transform', 'scale(0.95)');
-        });
-        $('.log').find('a').last().mouseout(function(){
-            $('.log').find('a').last().css('transform', 'scale(1)');
-        });
-        $('')
-
 
         var essai = 0;
-        completion = 0;
-
+        var completed = false;
         $('.animal-form').find('img').mouseover(function(){
-            if(completion != 6){
+            if(completed == false){
                 $(this).css('transform', 'scale(0.98)');
             }
         });
         $('.animal-form').find('img').mouseout(function(){
-            if(completion != 6){
+            if(completed == false){
                 $(this).css('transform', 'scale(1)');
             }
         });
         $('.animal-form').find('img').click(function(){
-            if(completion != 6){
+            if(completed == false){
                 $(this).css('transform', 'scale(0.95)').one('transitionend', function(){
                     $(this).css('transform', 'scale(1)');
                 });
@@ -126,7 +94,6 @@
 
         $('.valider').click(function(){
             if($('.horse-form').find('input').val() == 'CHEVAL'){
-                completion++;
                 $('.horse-form').find('input').css('background', '#33c054').prop('disabled', true);
                 $('.horse-form').find('img').attr('src', '<?=base_url();?>asset/images/horse.svg').css('cursor', 'default');
             }
@@ -137,7 +104,6 @@
 
 
             if($('.cow-form').find('input').val() == 'VACHE'){
-                completion++;
                 $('.cow-form').find('input').css('background', '#33c054').prop('disabled', true);
                 $('.cow-form').find('img').attr('src', '<?=base_url();?>asset/images/cow.svg').css('cursor', 'default');
             }
@@ -148,7 +114,6 @@
 
 
             if($('.sheep-form').find('input').val() == 'MOUTON'){
-                completion++;
                 $('.sheep-form').find('input').css('background', '#33c054').prop('disabled', true);
                 $('.sheep-form').find('img').attr('src', '<?=base_url();?>asset/images/sheep.svg').css('cursor', 'default');
             }
@@ -159,7 +124,6 @@
 
 
             if($('.pig-form').find('input').val() == 'COCHON'){
-                completion++;
                 $('.pig-form').find('input').css('background', '#33c054').prop('disabled', true);
                 $('.pig-form').find('img').attr('src', '<?=base_url();?>asset/images/pig.svg').css('cursor', 'default');
             }
@@ -170,7 +134,6 @@
 
 
             if($('.chicken-form').find('input').val() == 'POULE'){
-                completion++;
                 $('.chicken-form').find('input').css('background', '#33c054').prop('disabled', true);
                 $('.chicken-form').find('img').attr('src', '<?=base_url();?>asset/images/chicken.svg').css('cursor', 'default');
             }
@@ -181,7 +144,6 @@
 
 
             if($('.dog-form').find('input').val() == 'CHIEN'){
-                completion++;
                 $('.dog-form').find('input').css('background', '#33c054').prop('disabled', true);
                 $('.dog-form').find('img').attr('src', '<?=base_url();?>asset/images/dog.svg').css('cursor', 'default');
             }
@@ -189,11 +151,23 @@
                 $('.tryagain').css('opacity', '1');
                 $('.dog-form').find('input').css('background', '#ee3333');
             }
-
-
-            if(completion == 6){
-                $('.tryagain').text('Bravo, tu as bien reconnus les cris des animaux, mais Célestin s\'est encore enfuit, passe vite à l\'énigme suivante pour le rattraper !').css('color', '#33c054').css('opacity', '1');
+            if($('.horse-form').find('input').val() == 'CHEVAL' && $('.cow-form').find('input').val() == 'VACHE' && $('.sheep-form').find('input').val() == 'MOUTON' && $('.pig-form').find('input').val() == 'COCHON' && $('.chicken-form').find('input').val() == 'POULE' && $('.dog-form').find('input').val() == 'CHIEN'){
+                $('.tryagain').text('Bravo, tu as bien reconnu les cris des animaux, mais Célestin s\'est encore enfui, passe vite à l\'énigme suivante pour le rattraper !').css('color', '#33c054').css('opacity', '1');
                 $('.input-hidden').val('completed');
+                completed = true;
+            }
+            else{
+                essai++;
+            }
+            $('.tryleft').text('Essais restants: '+(3 - essai)+' / 3');
+            if(essai == 1){
+                $('.tryleft').css('color', '#ee9c33');
+            }
+            if(essai == 2){
+                $('.tryleft').css('color', '#ee3333');
+            }
+            if(essai == 3){
+                $('.ban-form').submit();
             }
         });
         $('.input-text').click(function(){
@@ -229,6 +203,13 @@
         width: 780px;
         margin: 0 40px 0 0;
     }
+    .tryleft{
+        text-align: right;
+        font-family: 'Skater Girls Rock';
+        font-size: 30px;
+        color: #33c054;
+        margin: 10px;
+    }
     .animal-form{
         display: inline-block;
         width: 25%;
@@ -247,6 +228,8 @@
         width: 100%;
         opacity: 0;
         margin: 0 0 20px 0;
+        user-select: none;
+        cursor: default;
     }
     .input-text{
         text-align: center;
@@ -261,20 +244,6 @@
     }
     .input-text:focus{
         outline: none;
-    }
-    .valider{
-        display: block;
-        width: 65px;
-        height: 35px;
-        font-family: 'Skater Girls Rock';
-        font-size: 35px;
-        color: #ffffff;
-        background: #33c054;
-        border: none;
-        border-radius: 5px;
-        padding: 15px 0 5px 0;
-        margin: 0 auto 30px auto;
-        cursor: pointer;
     }
     .content-2-right{
         display: flex;
