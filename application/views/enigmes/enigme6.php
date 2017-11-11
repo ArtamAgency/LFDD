@@ -63,7 +63,7 @@
                 $('.tryagain').css('opacity', '1');
                 $('.sheep-form').find('input').css('background', '#ee3333');
             }
-            if($('.pig-form').find('input').val() == '3'){
+            if($('.pig-form').find('input').val() == '4'){
                 $('.pig-form').find('input').css('background', '#33c054').prop('disabled', true);
                 $('.pig-form').find('img').attr('src', '<?=base_url();?>asset/images/pig.svg').css('cursor', 'default');
             }
