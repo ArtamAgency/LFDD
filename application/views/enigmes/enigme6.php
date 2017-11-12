@@ -81,7 +81,7 @@
             }
 
 
-            if($('.sheep-form').find('input').val() == '3' && $('.pig-form').find('input').val() == '3' && $('.dog-form').find('input').val() == '2'){
+            if($('.sheep-form').find('input').val() == '3' && $('.pig-form').find('input').val() == '4' && $('.dog-form').find('input').val() == '2'){
                 $('.tryagain').text('Bravo, tu as bien compté les animaux, mais Célestin s\'est encore enfui, passe vite à l\'énigme suivante pour le rattraper !').css('color', '#33c054').css('opacity', '1');
                 $('.input-hidden').val('completed');
             }
